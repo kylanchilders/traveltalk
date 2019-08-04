@@ -1,7 +1,7 @@
 var queryURL = "https://opentdb.com/api.php?amount=20&difficulty=medium";
 
 
-function eventBrite(queryURL) {
+
 $.ajax({
     url: queryURL,
     method: "GET"
@@ -10,18 +10,18 @@ $.ajax({
    options = response.results;
     console.log(options);
    });
-}
-
-eventBrite(queryURL)
 
 
 
 //Google Map Call 
 var map;
+var latitude = 47.6062
+var long = -122.3321
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 47.6062, lng: -122.3321},
-    zoom: 16
+    center: {lat: latitude, lng: long},
+    zoom: 10  
   });
 }
 
