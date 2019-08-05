@@ -1,17 +1,32 @@
 
-var queryURL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&"
-var queryautocom = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&offset=3&";
-
-
+//make a city search and then take those results and pass them into 
+//var queryURL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&"
+var queryautocom = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&offset=3&input=Seattle";
 
 $.ajax({
-    url: queryURL,
-    method: "GET"
-   }).then(function(response) {
+  crossOrigin: true,
+  url: queryautocom,
+  method: "GET",
+  dataType: 'jsonp'
 
-   options = response.results;
-    console.log(options);
-   });
+ }).then(function(responseautocom) {
+
+  autocomoptions = responseautocom.results;
+  console.log(autocomoptions);
+ });
+
+
+
+
+// $.ajax({
+//     crossOrigin: true,
+//     url: queryURL,
+//     method: "GET"
+//    }).then(function(response) {
+
+//    options = response.results;
+//     console.log(options);
+//    });
 
 
 
