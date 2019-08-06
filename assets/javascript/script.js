@@ -65,7 +65,42 @@ $("#search-name").on('keyup',function(e) {
 
 
     });
+    var auth = "S5UUTS2NYPECCKBYF5JY";  
+    function getEventByLatLong(latitude, longitude) {
     
+      var eventURL = "https://www.eventbriteapi.com/v3/events/search/?token=" + auth + "&location.longitude=" + longitude + "&location.latitude=" + latitude + "&expand=venue";
+  
+      $.ajax({
+          url: eventURL,
+          method: "GET"
+      }).then(function (response) {
+  
+          var currentEvent = response.events[0];
+          var eventTitle = currentEvent.name.text;
+          var eventDescription = currentEvent.description.text;
+          var eventTwo = eventDescription.substring(0,150) + "...";
+          var eventImage = currentEvent.logo.original.url;
+  
+          var eventLongitude = currentEvent.venue.longitude;
+          var eventLatitude = currentEvent.venue.latitude;
+  
+  
+          console.log(response);
+  
+  
+  
+          $("#eventPhoto").attr("src", eventImage);
+          $("#eventTitle").text(eventTitle);
+          $("#eventDescription").text(eventTwo);
+  
+          $("#eventDescription").append("<button> <>")
+      });
+  
+  
+  };
+  
+  getEventByLatLong(latitude, longitude);
+  
     }
    })
   
@@ -110,6 +145,44 @@ $("#search").on("click", function() {
       title: 'Hello World!'
       
     });
+    var auth = "S5UUTS2NYPECCKBYF5JY";
+
+    function getEventByLatLong(latitude, longitude) {
+    
+        var eventURL = "https://www.eventbriteapi.com/v3/events/search/?token=" + auth + "&location.longitude=" + longitude + "&location.latitude=" + latitude + "&expand=venue";
+    
+        $.ajax({
+            url: eventURL,
+            method: "GET"
+        }).then(function (response) {
+    
+            var currentEvent = response.events[0];
+            var eventTitle = currentEvent.name.text;
+            var eventDescription = currentEvent.description.text;
+            var eventTwo = eventDescription.substring(0,150) + "...";
+            var eventImage = currentEvent.logo.original.url;
+    
+            var eventLongitude = currentEvent.venue.longitude;
+            var eventLatitude = currentEvent.venue.latitude;
+    
+    
+            console.log(response);
+    
+    
+    
+            $("#eventPhoto").attr("src", eventImage);
+            $("#eventTitle").text(eventTitle);
+            $("#eventDescription").text(eventTwo);
+    
+            $("#eventDescription").append("<button> <>")
+        });
+    
+    
+    };
+    
+    getEventByLatLong(latitude, longitude);
+    
+
   },
 error: function() {
     console.log("aw crap");
@@ -117,6 +190,11 @@ error: function() {
 
  })
 });
+
+
+
+
+
 
 
 
