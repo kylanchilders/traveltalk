@@ -29,7 +29,7 @@ error: function() {
 }
 })
 
-$("#search-name").on('keypress',function(e) {
+$("#search-name").on('keyup',function(e) {
   if(e.which == 13) {
     var search = $("#search-name").val();
     console.log(search)
@@ -53,15 +53,22 @@ $("#search-name").on('keypress',function(e) {
       resultlat = data1.results[0].geometry.lat
       console.log(resultlat)
       latitude = resultlat
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: latitude, lng: longitude},
-        zoom: 10  
-      })
-    },
-  error: function() {
-      console.log("aw crap");
-  }
-  
+         
+    myLatLng = {lat: latitude, lng: longitude};
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng,
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP  
+    })
+    marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
+      
+    });
+
+    
+    }
    })
   
 
@@ -87,15 +94,24 @@ $("#search").on("click", function() {
     timestamp = data1;
     console.log(timestamp);
     resultlong = data1.results[0].geometry.lng;
-    console.log(resultlong);
-    longitude = resultlong
     resultlat = data1.results[0].geometry.lat
+    console.log(resultlong);
     console.log(resultlat)
     latitude = resultlat
+    longitude = resultlong
+    
+    myLatLng = {lat: latitude, lng: longitude};
     map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: latitude, lng: longitude},
-      zoom: 10  
+      center: myLatLng,
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP  
     })
+    marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
+      
+    });
   },
 error: function() {
     console.log("aw crap");
@@ -107,8 +123,15 @@ error: function() {
 
 
 function initMap() {
+  myLatLng = {lat: latitude, lng: longitude};
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: latitude, lng: longitude},
+    center: myLatLng,
     zoom: 10  
   })
+  marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'Hello World!'
+  });
 };
+console.log(initMap)
