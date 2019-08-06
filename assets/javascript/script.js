@@ -42,12 +42,6 @@ $("#search-name").on('keyup',function(e) {
     })
 
     
-    marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-
-    });
     var auth = "S5UUTS2NYPECCKBYF5JY";  
     function getEventByLatLong(latitude, longitude) {
     
@@ -141,12 +135,7 @@ $("#search").on("click", function() {
       zoom: 12,
       mapTypeId: 'terrain'  
     })
-    marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-      
-    });
+
     var auth = "S5UUTS2NYPECCKBYF5JY";
 
     function getEventByLatLong(latitude, longitude) {
@@ -188,8 +177,6 @@ $("#search").on("click", function() {
     
             console.log(response);
     
-    
-    
             $("#eventPhoto").attr("src", eventImage);
             $("#eventTitle").text(eventTitle);
             $("#eventDescription").text(eventTwo);
@@ -220,9 +207,5 @@ function initMap() {
     zoom: 12 ,
     mapTypeId: 'terrain'
   })
-  marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Hello World!'
-  });
+
 };
