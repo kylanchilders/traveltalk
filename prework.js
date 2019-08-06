@@ -1,5 +1,24 @@
 $(document).ready(function()
 {
+//   n =  new Date();
+// y = n.getFullYear();
+// m = n.getMonth() + 1;
+// d = n.getDate();
+// document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+var dateToday = new Date();
+var m = monthNames[dateToday.getMonth()];
+var d = dateToday.getDate();
+  $(".months").text(m);
+  $(".dates").text(d);
+  $("#locationId1").text($("#image1").attr("alt").toUpperCase());
+  $("#locationId2").text($("#image2").attr("alt").toUpperCase());
+  $("#locationId3").text($("#image3").attr("alt").toUpperCase());
+  $("#locationId4").text($("#image4").attr("alt").toUpperCase());
+  $("#locationId5").text($("#image5").attr("alt").toUpperCase());
+  $("#locationId6").text($("#image6").attr("alt").toUpperCase());
       // Your web app's Firebase configuration
       var firebaseConfig = {
         apiKey: "AIzaSyDCrkvNi0NrUuzyTIvMG59e58fAhl_p6Mk",
@@ -50,7 +69,7 @@ $(document).ready(function()
     $("#button2").on("click",function()
     {
       console.log("LogIn");
-      window.open("preworkLogIn.html");
+      window.open("preworkLogIn.html","_self");
     })
     $("#logInButton1").on("click",function()
     {
@@ -68,14 +87,16 @@ $(document).ready(function()
       }
     })
 
+    $("#backButton1").on("click",function()
+    {
+      window.open("preworkSignin.html","_self")
+    })
 
     database.ref().on("child_added",function(snapshot)
     {
       console.log(snapshot.val());
         keys = snapshot.val();
         console.log(keys);
-      
-      
     })
 })
 // var name;
