@@ -1,33 +1,9 @@
 
 //make a city search and then take those results and pass them into 
-var originalURL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&offset=4&input=Seattle";
-var secondURL = "https://api.opencagedata.com/geocode/v1/json?q=Portland&key=ce4024be27f7473587cd9b456f635db5;"
-var queryautocom = "https://cors-anywhere.herokuapp.com/" + secondURL;
-var queryURL = "https://cors-anywhere.herokuapp.com/" + originalURL;
 
 var map;
 var latitude = 47.6062
 var longitude = -122.3321
-
-console.log(queryautocom)
-console.log(queryURL)
-
-$.ajax({
-  url: queryURL,
-  method: "GET",
-  dataType: "json",
-  // this headers section is necessary for CORS-anywhere
-  headers: {
-    "x-requested-with": "xhr" 
-  },
-  success: function(data) {
-    timestamp = data.predictions;
-    console.log(timestamp);
-},
-error: function() {
-    console.log("aw crap");
-}
-})
 
 $("#search-name").on('keyup',function(e) {
   if(e.which == 13) {
@@ -58,15 +34,37 @@ $("#search-name").on('keyup',function(e) {
     map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 10,
-      mapTypeId: google.maps.MapTypeId.ROADMAP  
+      mapTypeId: 'terrain'  
     })
+
+    
     marker = new google.maps.Marker({
       position: myLatLng,
       map: map,
       title: 'Hello World!'
-      
-    });
+    
+    ////////////Possible code to use for the eventbrite results and push markers to the google window////////////
+    ///////////https://stackoverflow.com/questions/3059044/google-maps-js-api-v3-simple-multiple-marker-example//////////////
 
+      // var infowindow = new google.maps.InfoWindow();
+
+      // var marker, i;
+  
+      // for (i = 0; i < locations.length; i++) {  
+      //   marker = new google.maps.Marker({
+      //     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+      //     map: map
+      //   });
+  
+      //   google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      //     return function() {
+      //       infowindow.setContent(locations[i][0]);
+      //       infowindow.open(map, marker);
+      //     }
+      //   })(marker, i));
+
+
+    });
     
     }
    })
@@ -104,7 +102,7 @@ $("#search").on("click", function() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 10,
-      mapTypeId: google.maps.MapTypeId.ROADMAP  
+      mapTypeId: 'terrain'  
     })
     marker = new google.maps.Marker({
       position: myLatLng,
@@ -126,7 +124,8 @@ function initMap() {
   myLatLng = {lat: latitude, lng: longitude};
   map = new google.maps.Map(document.getElementById('map'), {
     center: myLatLng,
-    zoom: 10  
+    zoom: 10 ,
+    mapTypeId: 'terrain'
   })
   marker = new google.maps.Marker({
     position: myLatLng,
