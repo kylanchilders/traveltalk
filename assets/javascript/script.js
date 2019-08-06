@@ -33,7 +33,7 @@ $("#search-name").on('keyup',function(e) {
     myLatLng = {lat: latitude, lng: longitude};
     map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 10,
+      zoom: 12,
       mapTypeId: 'terrain'  
     })
 
@@ -45,7 +45,7 @@ $("#search-name").on('keyup',function(e) {
     
     ////////////Possible code to use for the eventbrite results and push markers to the google window////////////
     ///////////https://stackoverflow.com/questions/3059044/google-maps-js-api-v3-simple-multiple-marker-example//////////////
-
+        
       // var infowindow = new google.maps.InfoWindow();
 
       // var marker, i;
@@ -81,10 +81,27 @@ $("#search-name").on('keyup',function(e) {
           var eventTwo = eventDescription.substring(0,150) + "...";
           var eventImage = currentEvent.logo.original.url;
   
-          var eventLongitude = currentEvent.venue.longitude;
-          var eventLatitude = currentEvent.venue.latitude;
-  
-  
+          var events = response.events
+
+          var infowindow = new google.maps.InfoWindow();
+
+          var marker, i;
+          function markers() {
+          for (i = 0; i < events.length; i++) {
+            if (i < 9){  
+            marker = new google.maps.Marker({
+              position: new google.maps.LatLng(events[i].venue.latitude, events[i].venue.longitude),
+              map: map
+            });
+      
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                infowindow.setContent(events[i].name);
+                infowindow.open(map, marker);
+              }
+            })(marker, i));
+          }}}
+          markers()
           console.log(response);
   
   
@@ -136,7 +153,7 @@ $("#search").on("click", function() {
     myLatLng = {lat: latitude, lng: longitude};
     map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 10,
+      zoom: 12,
       mapTypeId: 'terrain'  
     })
     marker = new google.maps.Marker({
@@ -161,10 +178,27 @@ $("#search").on("click", function() {
             var eventDescription = currentEvent.description.text;
             var eventTwo = eventDescription.substring(0,150) + "...";
             var eventImage = currentEvent.logo.original.url;
-    
-            var eventLongitude = currentEvent.venue.longitude;
-            var eventLatitude = currentEvent.venue.latitude;
-    
+            var events = response.events
+            
+          var infowindow = new google.maps.InfoWindow();
+
+          var marker, i;
+          function markers() {
+          for (i = 0; i < events.length; i++) {
+            if (i < 10){  
+            marker = new google.maps.Marker({
+              position: new google.maps.LatLng(events[i].venue.latitude, events[i].venue.longitude),
+              map: map
+            });
+      
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                infowindow.setContent(events[i].name);
+                infowindow.open(map, marker);
+              }
+            })(marker, i));
+          }}}
+          markers()
     
             console.log(response);
     
@@ -193,16 +227,11 @@ error: function() {
 
 
 
-
-
-
-
-
 function initMap() {
   myLatLng = {lat: latitude, lng: longitude};
   map = new google.maps.Map(document.getElementById('map'), {
     center: myLatLng,
-    zoom: 10 ,
+    zoom: 12 ,
     mapTypeId: 'terrain'
   })
   marker = new google.maps.Marker({
