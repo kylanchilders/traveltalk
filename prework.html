@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css" />
+   </head>
+  <body>
+      <div class = ""></div>
+      <div>
+
+        <div class="uk-h3">Scale</div>
+
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: scale">
+
+            <ul class="uk-slideshow-items">
+                <li>
+                    <img  id="image1" src="seattleImage1.jpeg" alt="seattle" uk-cover >
+                </li>
+                <li>
+                    <img id="image2" src="sfImage1.jpeg" alt="" uk-cover value="sanfrancisco">
+                </li>
+                <li>
+                    <img id="image3" src="parisImage1.jpeg" alt="" uk-cover value="paris">
+                </li>
+                <li>
+                    <img id="image4" src="greeceImage1.jpeg" alt="" uk-cover value="greece">
+                </li>
+                <li>
+                    <img id="image5" src="spainImage1.jpeg" alt="" uk-cover value="spain">
+                </li>
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+
+        </div>
+
+    </div>
+    <!-- <div  class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
+
+        <ul class="uk-slideshow-items">
+            <li>
+              <img id = "image1" src="seattleImage1.jpeg" alt="" uk-cover>
+            </li>
+            <li>
+                <img src="sfImage1.jpeg"  alt="" uk-cover>
+            </li>
+            <li>
+                <img src="parisImage1.jpeg"  alt="" uk-cover>
+            </li>
+            <li>
+                <img src="spainImage1.jpeg" alt="" uk-cover>
+            </li>
+            <li>
+                <img src="greeceImage1.jpeg" alt="" uk-cover>
+            </li>
+        </ul>
+    
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+    
+    </div> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit-icons.min.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+   <script src=" https://firebase.google.com/docs/web/setup#config-web-app "></script>
+    <script src="prework.js"></script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css" />
+    <title>Document</title>
+</head>
+<body>
+        <div  class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
+
+                <ul class="uk-slideshow-items">
+                    <li>
+                      <img id = "image1" src="seattleImage1.jpeg" alt="" uk-cover>
+                    </li>
+                    <li>
+                        <img src="parisImage1.jpeg"  alt="" uk-cover>
+                    </li>
+                    <li>
+                        <img src="vacay3.jpeg" alt="" uk-cover>
+                    </li>
+                </ul>
+            
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+            
+            </div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit-icons.min.js"></script>
+<script src="prework.js"></script>
+</body>
+</html> -->
