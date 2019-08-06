@@ -1,13 +1,13 @@
 
 //make a city search and then take those results and pass them into 
-var originalURL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&offset=3&input=Seattle";
+var originalURL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&offset=4&input=Seattle";
 var secondURL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&";
 var queryautocom = "https://cors-anywhere.herokuapp.com/" + secondURL;
 var queryURL = "https://cors-anywhere.herokuapp.com/" + originalURL;
 
 var map;
 var latitude = 47.6062
-var long = -122.3321
+var longitude = -122.3321
 
 console.log(queryautocom)
 console.log(queryURL)
@@ -21,7 +21,7 @@ $.ajax({
     "x-requested-with": "xhr" 
   },
   success: function(data) {
-    timestamp = data.results;
+    timestamp = data.predictions;
     console.log(timestamp);
 },
 error: function() {
@@ -40,7 +40,7 @@ $.ajax({
   }
 
  }).then(function(responseautocom) {
-  var autocomoptions = responseautocom.results;
+  var autocomoptions = responseautocom.items;
   console.log(autocomoptions);
  });
 
@@ -64,8 +64,7 @@ $.ajax({
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: latitude, lng: long},
+    center: {lat: latitude, lng: longitude},
     zoom: 16  
   })
 };
-
