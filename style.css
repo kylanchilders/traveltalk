@@ -1,0 +1,65 @@
+.locations
+{
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+.cityClass
+{
+    border-top:2px solid white;
+    border-bottom:2px solid white;
+}
+footer
+{
+    background-color:#1E1E1E;
+    /* height:80px; */
+    position: fixed;
+    width: 100%;
+}
+.navbar {
+ /* background-color: #333; */
+    /* overflow: hidden; */
+    /* position: fixed; */
+    /* bottom: 0; */
+
+    /* width: 100%; */
+  }
+  #navBar1{
+    list-style-type: none;
+    height: 80px;
+    width:100%;
+  }
+  .lists
+  {
+      float: left;
+      font-size: 15px;
+      font-weight: bolder;
+      height: 80px;
+  }  .lists a
+  {
+      display: block;
+      padding:8px;
+      margin-top:10px;
+      margin-bottom: 10px;
+      margin-right: 80px;
+      text-decoration: none;
+      color:white;
+      text-align: center;
+  }
+ .lists a:hover
+  {
+      background-color: grey
+  }
+  .fa-home
+  {
+     position: relative;
+     top:-15px;
+  } 
+  #ig1
+  {
+      margin-top:10px;
+  }
+ 
+  .currentLocationButton
+  {
+      background-color: rgb(139, 0, 0);
+      color:white;
+  }
