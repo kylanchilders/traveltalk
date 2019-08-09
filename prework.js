@@ -1,13 +1,43 @@
 $(document).ready(function()
 {
-//   n =  new Date();
-// y = n.getFullYear();
-// m = n.getMonth() + 1;
-// d = n.getDate();
-// document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+  var city = "";
+if(navigator.geolocation)
+{
+    navigator.geolocation.getCurrentPosition(function(position)
+    {
+        console.log("Location Available");
+        console.log(position.coords.longitude+","+position.coords.latitude);
+        $.ajax({
+            type:"GET",
+            url:"https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc",
+            data:{},
+            success:function(data)
+            {
+                console.log("Entered success");
+                if(data.status === "OK")
+                {
+                    console.log(data.results);
+                    if(data.results.length>0)
+                    {
+                        console.log("Entered the if");
+                        $("#para1").html(data.results[0].formatted_address); 
+                        city=data.results[0].address_components[4].long_name; 
+                        console.log(city);
+                        $(".currentCity").text("-"+city.toUpperCase());
+                        // $("#text1").val(city);
+                        // var cityValue=$("#text1").val();
+                     }
+                }
+                //console.log(data);
+            }
+    }) 
+
+})
+}
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
+
 var dateToday = new Date();
 var m = monthNames[dateToday.getMonth()];
 var d = dateToday.getDate();
@@ -19,6 +49,7 @@ var d = dateToday.getDate();
   $("#locationId4").text($("#image4").attr("alt").toUpperCase());
   $("#locationId5").text($("#image5").attr("alt").toUpperCase());
   $("#locationId6").text($("#image6").attr("alt").toUpperCase());
+ 
       // Your web app's Firebase configuration
       var firebaseConfig = {
         apiKey: "AIzaSyDCrkvNi0NrUuzyTIvMG59e58fAhl_p6Mk",
@@ -98,6 +129,8 @@ var d = dateToday.getDate();
         keys = snapshot.val();
         console.log(keys);
     })
+
+    
 })
 // var name;
 // var role;
