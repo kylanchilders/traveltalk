@@ -4,6 +4,9 @@
 var map;
 var latitude = 47.6062
 var longitude = -122.3321
+var numOfEventsToDisplay = 10
+var calcLong = 0;
+var calcLat = 0;
 
 $("#search-name").on('keyup', function (e) {
   if (e.which == 13) {
@@ -46,7 +49,7 @@ $("#search-name").on('keyup', function (e) {
         var bookmark = [];
         function addEventCard(event){
           
-          console.log(event);
+
           var eventId = event.id;
           var template = `
               <div id="eventCard##EVENT-ID##" class="card" style="width: 18rem;">
@@ -83,9 +86,8 @@ $("#search-name").on('keyup', function (e) {
             url: eventURL,
             method: "GET"
           }).then(function (response) {
-        console.log(response);
 
-        for(var i = 0; i < 10; i++){
+        for(var i = 0; i < numOfEventsToDisplay; i++){
             var currentEvent = response.events[i];
             var eventTitle = currentEvent.name.text;
             var eventDate = currentEvent.start.local;
@@ -97,31 +99,46 @@ $("#search-name").on('keyup', function (e) {
             var eventLatitude = currentEvent.venue.latitude;
 
             console.log(eventLatitude, eventLongitude);
+            calcLat = parseFloat(calcLat) + parseFloat(eventLatitude)
+            calcLong = parseFloat(calcLong) + parseFloat(eventLongitude)
+            
             addEventCard(currentEvent);
         } 
-       
+            console.log(calcLat)
+            console.log(calcLong)
+            avgLat = (calcLat / 10)
+            avgLong = (calcLong / 10)
+            calcLat = 0 
+            calcLong = 0
+            console.log(avgLat)
+            console.log(avgLong)
+            console.log(calcLat)
+            console.log(calcLong)
+
+
+            events = response.events
             var infowindow = new google.maps.InfoWindow();
 
-            // var marker, i;
-            // function markers() {
-            //   for (i = 0; i < events.length; i++) {
-            //     if (i < 10) {
-            //       marker = new google.maps.Marker({
-            //         position: new google.maps.LatLng(events[i].venue.latitude, events[i].venue.longitude),
-            //         map: map,
-            //         title: events[i].name.text
-            //       });
+            var marker, i;
+            function markers() {
+              for (i = 0; i < events.length; i++) {
+                if (i < numOfEventsToDisplay) {
+                  marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(events[i].venue.latitude, events[i].venue.longitude),
+                    map: map,
+                    title: events[i].name.text
+                  });
 
-            //       google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            //         return function () {
-            //           infowindow.setContent(events[i].name.text);
-            //           infowindow.open(map, marker);
-            //         }
-            //       })(marker, i));
-            //     }
-            //   }
-            // }
-            // markers()
+                  google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                      infowindow.setContent(events[i].name.text);
+                      infowindow.open(map, marker);
+                    }
+                  })(marker, i));
+                }
+              }
+            }
+            markers()
             console.log(response);
           });
 
@@ -157,7 +174,6 @@ $("#search").on("click", function () {
     },
     success: function (data1) {
       timestamp = data1.results;
-      console.log(timestamp);
       longitude = data1.results[0].geometry.location.lng;
       latitude = data1.results[0].geometry.location.lat
       console.log(longitude);
@@ -212,7 +228,7 @@ $("#search").on("click", function () {
         }).then(function (response) {
       console.log(response);
 
-      for(var i = 0; i < 10; i++){
+      for(var i = 0; i < numOfEventsToDisplay; i++){
           var currentEvent = response.events[i];
           var eventTitle = currentEvent.name.text;
           var eventDate = currentEvent.start.local;
@@ -224,31 +240,39 @@ $("#search").on("click", function () {
           var eventLatitude = currentEvent.venue.latitude;
 
           console.log(eventLatitude, eventLongitude);
+          calcLat = parseFloat(calcLat) + parseFloat(eventLatitude)
+          calcLong = parseFloat(calcLong) + parseFloat(eventLongitude)
           addEventCard(currentEvent);
       } 
-
+      avgLat = calcLat / 10;
+      avgLong = calcLong / 10;
+      calcLat = 0 
+      calcLong = 0
+      console.log(calcLat)
+      console.log(calcLong)
+          events = response.events
           var infowindow = new google.maps.InfoWindow();
 
-          // var marker, i;
-          // function markers() {
-          //   for (i = 0; i < events.length; i++) {
-          //     if (i < 10) {
-          //       marker = new google.maps.Marker({
-          //         position: new google.maps.LatLng(events[i].venue.latitude, events[i].venue.longitude),
-          //         map: map,
-          //         title: events[i].name.text
-          //       });
+          var marker, i;
+          function markers() {
+            for (i = 0; i < events.length; i++) {
+              if (i < numOfEventsToDisplay) {
+                marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(events[i].venue.latitude, events[i].venue.longitude),
+                  map: map,
+                  title: events[i].name.text
+                });
 
-          //       google.maps.event.addListener(marker, 'click', (function (marker, i) {
-          //         return function () {
-          //           infowindow.setContent(events[i].name.text);
-          //           infowindow.open(map, marker);
-          //         }
-          //       })(marker, i));
-          //     }
-          //   }
-          // }
-          // markers()
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                  return function () {
+                    infowindow.setContent(events[i].name.text);
+                    infowindow.open(map, marker);
+                  }
+                })(marker, i));
+              }
+            }
+          }
+          markers()
           console.log(response);
 
         });
