@@ -1,6 +1,4 @@
 
-//make a city search and then take those results and pass them into 
-
 var map;
 //var latitude = 47.6062 
 //var longitude = -122.3321
@@ -277,11 +275,14 @@ $("#search").on("click", function () {
       alert("Status: " + textStatus); alert("Error: " + errorThrown);
     },
     success: function (data1) {
+      console.log(queryautocom);
       timestamp = data1.results;
+      console.log(timestamp);
       longitude = data1.results[0].geometry.location.lng;
-      latitude = data1.results[0].geometry.location.lat
       console.log(longitude);
+      latitude = data1.results[0].geometry.location.lat
       console.log(latitude)
+
 
       myLatLng = { lat: latitude, lng: longitude };
       map = new google.maps.Map(document.getElementById('map'), {
@@ -290,10 +291,12 @@ $("#search").on("click", function () {
         mapTypeId: 'terrain'
       })
 
+
       var auth = "S5UUTS2NYPECCKBYF5JY";
       var bookmark = [];
       function addEventCard(event){
-        $("#eventCardBody").empty();
+        
+
         var eventId = event.id;
         var template = `
             <div id="eventCard##EVENT-ID##" class="card" style="width: 18rem;">
@@ -330,7 +333,6 @@ $("#search").on("click", function () {
           url: eventURL,
           method: "GET"
         }).then(function (response) {
-      console.log(response);
 
       for(var i = 0; i < numOfEventsToDisplay; i++){
           var currentEvent = response.events[i];
@@ -346,14 +348,21 @@ $("#search").on("click", function () {
           console.log(eventLatitude, eventLongitude);
           calcLat = parseFloat(calcLat) + parseFloat(eventLatitude)
           calcLong = parseFloat(calcLong) + parseFloat(eventLongitude)
+          
           addEventCard(currentEvent);
       } 
-      avgLat = calcLat / 10;
-      avgLong = calcLong / 10;
-      calcLat = 0 
-      calcLong = 0
-      console.log(calcLat)
-      console.log(calcLong)
+          console.log(calcLat)
+          console.log(calcLong)
+          avgLat = (calcLat / 10)
+          avgLong = (calcLong / 10)
+          calcLat = 0 
+          calcLong = 0
+          console.log(avgLat)
+          console.log(avgLong)
+          console.log(calcLat)
+          console.log(calcLong)
+
+
           events = response.events
           var infowindow = new google.maps.InfoWindow();
 
@@ -378,7 +387,6 @@ $("#search").on("click", function () {
           }
           markers()
           console.log(response);
-
         });
 
 
@@ -386,14 +394,11 @@ $("#search").on("click", function () {
 
       getEventByLatLong(latitude, longitude);
 
-
-    },
-    error: function () {
-      console.log("aw crap");
     }
-
   })
+
 });
+
 
 
 
