@@ -49,21 +49,13 @@ ready(function(){
         if(parseInt(star.getAttribute("data-rating")) <= selectedRating) {
           addClass(star, "selected");
         }
+        console.log(selectedRating)
       });      
       evt.preventDefault();
+      $(".rating-stars").append("Thanks for your input!")
+      $(".card-text").empty();
+      setTimeout(function(){
+      window.location.replace('https://kylanchilders.github.io/traveltalk/')}, 2000);
+    });
     });
   });
-  document.querySelector(".rating-stars").addEventListener("mouseout", function(evt){
-    // When the cursor leaves the whole rating star area, remove the "hover" class and apply 
-    // the "selected" class to the number of stars selected.
-    removeClass(stars, "hover");
-    if(selectedRating) {
-      Array.prototype.forEach.call(stars, function(star, i) {
-        if(parseInt(star.getAttribute("data-rating")) <= selectedRating) {
-          addClass(star, "selected");
-        }
-      });      
-    }
-  });
-  
-});
