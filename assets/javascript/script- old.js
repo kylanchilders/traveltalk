@@ -40,9 +40,7 @@ function google() {
 
 function eventbrite() {
   var auth = "S5UUTS2NYPECCKBYF5JY";
-  var bookmarks = [];
-  var eventsID = [];
-
+  var bookmark = [];
   function addEventCard(event) {
 
 
@@ -85,9 +83,15 @@ function eventbrite() {
 
       for (var i = 0; i < numOfEventsToDisplay; i++) {
         var currentEvent = response.events[i];
+        var eventTitle = currentEvent.name.text;
+        var eventDate = currentEvent.start.local;
+        var eventDescription = currentEvent.description.text;
+        var eventTwo = eventDescription.substring(0, 150) + "...";
+        var eventImage = currentEvent.logo.original.url;
+
         var eventLongitude = currentEvent.venue.longitude;
         var eventLatitude = currentEvent.venue.latitude;
-        console.log(response)
+
         console.log(eventLatitude, eventLongitude);
         calcLat = parseFloat(calcLat) + parseFloat(eventLatitude)
         calcLong = parseFloat(calcLong) + parseFloat(eventLongitude)
