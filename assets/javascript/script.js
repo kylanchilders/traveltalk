@@ -117,7 +117,6 @@ $("#search-name").on('keyup', function (e) {
   if (e.which == 13) {
     var search = $("#search-name").val();
     console.log(search)
-    //secondURL = "https://api.opencagedata.com/geocode/v1/json?q=" + search +"&key=ce4024be27f7473587cd9b456f635db5";
     secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
     queryautocom = "https://cors-anywhere.herokuapp.com/" + secondURL;
     $("#eventCardBody").empty();
