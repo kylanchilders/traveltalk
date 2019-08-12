@@ -14,6 +14,7 @@ function google() {
   secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
   queryautocom = "https://cors-anywhere.herokuapp.com/" + secondURL;
   $("#eventCardBody").empty();
+  
   $.ajax({
     url: queryautocom,
     method: "GET",
@@ -56,7 +57,7 @@ function eventbrite() {
               <p id="eventDescription##EVENT-ID##" class="card-text"></p>
               <br>
               <div class="row text-center">
-                  <a  id="addEventButton##EVENT-ID##" href="#" class="btn btn-primary" style="margin: 10px">+</a>
+                  <a id="addEventButton##EVENT-ID##" href="#" class="btn btn-primary" style="margin: 10px">+</a>
                   <a id="removeEventButton##EVENT-ID##" href="#" class="btn btn-primary" style="margin: 10px">-</a>
                   <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 10px">More Info</a>
               </div>
@@ -152,6 +153,11 @@ $("#search").on("click", function () {
   google()
 });
 
+$body = $("body");
 
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }    
+});
 
 eventbrite();

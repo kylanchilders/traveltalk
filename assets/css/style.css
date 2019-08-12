@@ -1,5 +1,114 @@
 
-
-  .card{float:left;
-
+.locations
+{
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+.cityClass
+{
+    border-top:2px solid white;
+    border-bottom:2px solid white;
+}
+footer
+{
+    
+    height: 50px;
+    margin:0;
+    padding-bottom:10px;
+}
+.navbar-nav
+{
+    width:100%;
+}
+.navbar {
+    border-radius: 0;
+    background-color:#1E1E1E;
+    margin:0;
+    padding:0;
   }
+  .lists
+  {
+      float: left;
+      font-size: 15px;
+      font-weight: bolder;
+      height: 50px;
+  } 
+   .lists a
+  {
+      display: block;
+      padding:8px;
+      /* margin-top:10px;
+      margin-bottom: 10px;*/
+      margin-right: 80px; 
+      text-decoration: none;
+      color:white;
+      text-align: center;
+  }
+
+ .lists a:hover
+  {
+      background-color: grey
+  }
+  .fa-home
+  {
+     position: relative;
+     top:-15px;
+  } 
+  #ig1
+  {
+      margin-top:10px;
+  }
+ 
+  .currentLocationButton
+  {
+      background-color: rgb(139, 0, 0);
+      color:white;
+  }
+ 
+ nav{
+    position:fixed;
+    bottom:0;
+    margin:0;
+    padding:0;
+    overflow: hidden;
+ }
+ html{
+     overflow: hidden;
+     height:100%;
+     padding:0;
+     margin:0;
+ }
+ body{
+    min-height: 100%;
+     overflow: auto;
+    padding:0;
+    margin:0;
+ }
+
+ .card {
+    padding:0;
+    margin:0;
+    float: left;
+}
+
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+body.loading .modal {
+    overflow: hidden;   
+}
+
+
+body.loading .modal {
+    display: block;
+}
