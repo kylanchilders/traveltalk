@@ -1,3 +1,20 @@
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyDCrkvNi0NrUuzyTIvMG59e58fAhl_p6Mk",
+  authDomain: "traveltalk-1e69b.firebaseapp.com",
+  databaseURL: "https://traveltalk-1e69b.firebaseio.com",
+  projectId: "traveltalk-1e69b",
+  storageBucket: "traveltalk-1e69b.appspot.com",
+  messagingSenderId: "903453806895",
+  appId: "1:903453806895:web:98061fcb91718e00"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+var database = firebase.database();
+
+
 function ready(fn) {
   if(document.readyState != 'loading') {
     fn();
@@ -5,7 +22,35 @@ function ready(fn) {
     document.addEventListener('DOMContentLoaded', fn);
   }
 }
-var selectedRating = 0;
+
+var eventID = localStorage.getItem("eventId");
+var initialRating = 0
+var ratingNumber = 0
+var ratingTotal = 0
+var newRatingTotal = 0
+var selectedRating = 0
+var rawInitialRating = 0
+
+database.ref().on("value", function(snapshot) {
+  if(snapshot.child('initialRating').exists()){
+    initialRating = parseInt(snapshot.val().initialRating);
+  }else{database.update()({ 'initialRating': initialRating})}
+
+  if(snapshot.child('ratingNumber').exists()){
+    ratingNumber = parseInt(snapshot.val().ratingNumber);
+  }else{database.update()({ 'ratingNumber': ratingNumber})}
+});
+
+function ratingAg(){
+  ratingTotal = initialRating * ratingNumber
+  ratingNumber++
+  newRatingTotal = selectedRating + ratingTotal
+  rawInitialRating = newRatingTotal / ratingNumber
+  initialRating = Math.round(rawInitialRating)
+  database.ref().set({
+    initialRating: initialRating
+  });
+
 ready(function(){
   function addClass(el, className) {
     if(typeof el.length == "number") {
@@ -52,10 +97,14 @@ ready(function(){
         console.log(selectedRating)
       });      
       evt.preventDefault();
+      ratingAg();
       $(".rating-stars").append("Thanks for your input!")
       $(".card-text").empty();
       setTimeout(function(){
       window.location.replace('https://kylanchilders.github.io/traveltalk/')}, 2000);
     });
     });
+
+    };
+
   });
