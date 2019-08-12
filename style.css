@@ -83,4 +83,21 @@ footer
     padding:0;
     margin:0;
  }
+.card_body_style
+{
+    background-color:black;
+    height:200px;
+    overflow: scroll;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
 
+}
+.listStyle
+{
+    width:220px;
+}
+.eventsList
+{
+    position: relative;
+    top:450px;
+}
