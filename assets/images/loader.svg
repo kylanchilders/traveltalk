@@ -1,0 +1,25 @@
+<svg class="lds-curve-bars" width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="background: none;"><g transform="translate(50,50)"><circle cx="0" cy="0" r="3.8461538461538463" fill="none" stroke="#030303" stroke-width="2" stroke-dasharray="12.08304866765305 12.08304866765305" transform="rotate(237.125)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="0" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="7.6923076923076925" fill="none" stroke="#d39182" stroke-width="2" stroke-dasharray="24.1660973353061 24.1660973353061" transform="rotate(264.752)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.08333333333333333" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="11.538461538461538" fill="none" stroke="#e0e0d0" stroke-width="2" stroke-dasharray="36.24914600295915 36.24914600295915" transform="rotate(291.139)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.16666666666666666" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="15.384615384615385" fill="none" stroke="#b4b524" stroke-width="2" stroke-dasharray="48.3321946706122 48.3321946706122" transform="rotate(315.678)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.25" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="19.23076923076923" fill="none" stroke="#14843c" stroke-width="2" stroke-dasharray="60.41524333826525 60.41524333826525" transform="rotate(337.377)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.3333333333333333" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="23.076923076923077" fill="none" stroke="#7c9ba0" stroke-width="2" stroke-dasharray="72.4982920059183 72.4982920059183" transform="rotate(354.102)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.4166666666666667" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="26.923076923076923" fill="none" stroke="#1087b0" stroke-width="2" stroke-dasharray="84.58134067357135 84.58134067357135" transform="rotate(0.444177)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.5" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="30.76923076923077" fill="none" stroke="#35578f" stroke-width="2" stroke-dasharray="96.6643893412244 96.6643893412244" transform="rotate(11.6779)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.5833333333333334" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="34.61538461538461" fill="none" stroke="#2e385b" stroke-width="2" stroke-dasharray="108.74743800887745 108.74743800887745" transform="rotate(30.7705)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.6666666666666666" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="38.46153846153846" fill="none" stroke="#22202c" stroke-width="2" stroke-dasharray="120.8304866765305 120.8304866765305" transform="rotate(53.7559)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.75" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="42.30769230769231" fill="none" stroke="#6a5363" stroke-width="2" stroke-dasharray="132.91353534418354 132.91353534418354" transform="rotate(79.1143)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.8333333333333334" repeatCount="indefinite"></animateTransform>
+</circle><circle cx="0" cy="0" r="46.15384615384615" fill="none" stroke="#af243d" stroke-width="2" stroke-dasharray="144.9965840118366 144.9965840118366" transform="rotate(106.053)">
+<animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1" dur="1.3s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="-0.9166666666666666" repeatCount="indefinite"></animateTransform>
+</circle></g></svg>

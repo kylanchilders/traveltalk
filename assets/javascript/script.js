@@ -28,8 +28,6 @@ function google() {
     // },
     success: function (data1) {
       console.log(queryautocom);
-      timestamp = data1.results;
-      console.log(timestamp);
       longitude = data1.results[0].geometry.location.lng;
       console.log(longitude);
       latitude = data1.results[0].geometry.location.lat
@@ -49,7 +47,7 @@ function eventbrite() {
 
     var eventId = event.id;
     var template = `
-      <div id="eventCard##EVENT-ID##" class="card" style="width: 18rem;">
+      <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem; order: 1" tabindex="-1" class="uk-active">
           <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
           <div class="card-body">
               <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
@@ -62,10 +60,10 @@ function eventbrite() {
                   <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 10px">More Info</a>
               </div>
           </div>
-      </div>
+      </li>
   `;
     template = template.replace(/##EVENT-ID##/g, eventId);
-    $("#eventCardBody").append(template);
+    $(".uk-slider-items").append(template);
 
 
     $("#eventPhoto" + eventId).attr("src", event.logo.original.url);
@@ -160,4 +158,6 @@ $(document).on({
      ajaxStop: function() { $body.removeClass("loading"); }    
 });
 
+
 eventbrite();
+
