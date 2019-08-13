@@ -13,8 +13,7 @@ function google() {
   console.log(search)
   secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
   queryautocom = "https://cors-anywhere.herokuapp.com/" + secondURL;
-  $(".uk-slider-items").empty();
-  
+  $("#eventCardBody").empty();
   $.ajax({
     url: queryautocom,
     method: "GET",
@@ -28,6 +27,8 @@ function google() {
     // },
     success: function (data1) {
       console.log(queryautocom);
+      timestamp = data1.results;
+      console.log(timestamp);
       longitude = data1.results[0].geometry.location.lng;
       console.log(longitude);
       latitude = data1.results[0].geometry.location.lat
@@ -39,31 +40,29 @@ function google() {
 
 function eventbrite() {
   var auth = "S5UUTS2NYPECCKBYF5JY";
-  var bookmarks = [];
-  var eventsID = [];
-
+  var bookmark = [];
   function addEventCard(event) {
 
 
     var eventId = event.id;
     var template = `
-      <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem; order: 1" tabindex="-1" class="uk-active">
-          <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap" style="height: 165px;">
+      <div id="eventCard##EVENT-ID##" class="card" style="width: 18rem;">
+          <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
           <div class="card-body">
               <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
               <h6>Date of Event: <span id="eventDate##EVENT-ID##"></span></h6>
               <p id="eventDescription##EVENT-ID##" class="card-text"></p>
               <br>
               <div class="row text-center">
-                  <a id="addEventButton##EVENT-ID##" href="#" class="btn btn-primary" style="margin: 10px">+</a>
+                  <a  id="addEventButton##EVENT-ID##" href="#" class="btn btn-primary" style="margin: 10px">+</a>
                   <a id="removeEventButton##EVENT-ID##" href="#" class="btn btn-primary" style="margin: 10px">-</a>
                   <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 10px">More Info</a>
               </div>
           </div>
-      </li>
+      </div>
   `;
     template = template.replace(/##EVENT-ID##/g, eventId);
-    $(".uk-slider-items").append(template);
+    $("#eventCardBody").append(template);
 
 
     $("#eventPhoto" + eventId).attr("src", event.logo.original.url);
@@ -84,9 +83,15 @@ function eventbrite() {
 
       for (var i = 0; i < numOfEventsToDisplay; i++) {
         var currentEvent = response.events[i];
+        var eventTitle = currentEvent.name.text;
+        var eventDate = currentEvent.start.local;
+        var eventDescription = currentEvent.description.text;
+        var eventTwo = eventDescription.substring(0, 150) + "...";
+        var eventImage = currentEvent.logo.original.url;
+
         var eventLongitude = currentEvent.venue.longitude;
         var eventLatitude = currentEvent.venue.latitude;
-        console.log(response)
+
         console.log(eventLatitude, eventLongitude);
         calcLat = parseFloat(calcLat) + parseFloat(eventLatitude)
         calcLong = parseFloat(calcLong) + parseFloat(eventLongitude)
@@ -151,13 +156,6 @@ $("#search").on("click", function () {
   google()
 });
 
-$body = $("body");
-
-$(document).on({
-    ajaxStart: function() { $body.addClass("loading");    },
-     ajaxStop: function() { $body.removeClass("loading"); }    
-});
 
 
 eventbrite();
-

@@ -28,8 +28,49 @@ if(navigator.geolocation)
                         console.log("Entered the if");
                         $("#para1").html(data.results[0].formatted_address); 
                         city=data.results[0].address_components[4].long_name; 
-                        console.log(city);
+                        console.log("City = " + city);
                         $(".currentCity").text("-"+city.toUpperCase());
+                        var baseWeatherURL = "http://dataservice.accuweather.com/currentconditions/v1/"
+
+        var weatherApiKey = "?apikey=y19ljE9enoIiYwNP3GWqpi7jyPEYrldx&language=en-us&details=false"
+
+        var locationKey = "";
+
+        if(city == "London"){
+          locationKey = "328328"
+        }if(city == "Paris"){
+          locationKey = "623"
+        }if(city == "Seattle" || city == "King County"){
+          locationKey = "351409"
+        }if(city == "San Francisco"){
+          locationKey = "347629"
+        }if(city == "New York"){
+          locationKey = "349727"
+        }if(city == "Hong Kong"){
+          locationKey = "1123655"
+        }if(city == "Johannesburg"){
+          locationKey = "305448"
+        }if(city == "Perth"){
+          locationKey = "26797"
+        }if(city == "Madrid"){
+          locationKey = "308526"
+        }if(city == "Greece"){
+          locationKey = "182536"
+        };
+
+        currentWeatherURL = baseWeatherURL + locationKey + weatherApiKey;
+
+        $.ajax({
+          url: currentWeatherURL,
+          method: "GET"
+        }).then(function(response){
+          console.log(response);
+          $(".infoId1").attr("style", "height:430px;width:180px;border: 3px solid white")
+          $(".infoId1").append("<h3 style='margin:5 0 0 0'>Current Weather</h3><h4 style='margin:0'>Temp: " + response[0].Temperature.Imperial.Value + "</h4><h4 style='margin:0'>Conditions: " + response[0].WeatherText + "</h4>");
+        });
+
+                        
+                
                         // $("#text1").val(city);
                         // var cityValue=$("#text1").val();
                      }
