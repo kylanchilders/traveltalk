@@ -4,6 +4,7 @@ $(document).ready(function()
   var city = "";
 var latitude="";
 var longitude="";
+var pageNumber = 0;
 if(navigator.geolocation)
 {
     navigator.geolocation.getCurrentPosition(function(position)
@@ -180,7 +181,6 @@ var d = dateToday.getDate();
     function getEventByLatLong(latitude, longitude) {
 
       var eventURL = "https://www.eventbriteapi.com/v3/events/search/?token=" + auth + "&location.longitude=" + longitude + "&location.latitude=" + latitude + "&expand=venue";
-    
       $.ajax({
           url: eventURL,
           method: "GET",
@@ -231,13 +231,39 @@ var d = dateToday.getDate();
   
   $("#previousSlide1").on("click",function()
   {
-  
+    if($("img").attr("id").val() === "image1")
+    {
+      console.log("Hey seattle");
+    }
+    else if($("img").attr("id").val() === "image2")
+    {
+      console.log("Hey Sanfrancisco");
+    }
+    else if($("img").attr("id").val() === "image3")
+    {
+      console.log("Hey Paris");
+    }
+    
   })
   $("#nextSlide1").on("click",function()
   {
-    var slideCity=$(".cityClass").text();
-    console.log(slideCity);
-      console.log("Hello");
+    if($("img").attr("id").val() === "image1")
+    {
+      console.log("Hey seattle");
+    }
+    else if($("img").attr("id").val() === "image2")
+    {
+      console.log("Hey Sanfrancisco");
+    }
+    else if($("img").attr("id").val() === "image3")
+    {
+      console.log("Hey Paris");
+    }
+    
+  })
+  $("#signUp1").on("click",function()
+  {
+    window.open("preworkSignUp.html");
   })
 })
 
