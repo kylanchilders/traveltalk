@@ -47,7 +47,7 @@ function eventbrite() {
 
     var eventId = event.id;
     var template = `
-      <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem; order: 1" tabindex="-1" class="uk-active">
+      <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem;" tabindex="-1" class="uk-active">
           <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap" style="height: 165px;">
           <div class="card-body">
               <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
@@ -159,5 +159,21 @@ $(document).on({
 });
 
 
+
 eventbrite();
 
+var eventid = 65119628562
+
+function eventid1(){
+  var auth = "S5UUTS2NYPECCKBYF5JY";
+var eventAuth = "https://www.eventbrite.com/oauth/authorize?response_type=code&client_id="+ auth +"&redirect_uri="
+var eventURL1 = "https://www.eventbriteapi.com/v3/events/" + eventid + "/";
+var eventFinal = "https://www.eventbriteapi.com/v3/events/search/?token=" + auth + "&event.id=" + eventid + "&expand=venue";
+$.ajax({
+  url: eventFinal,
+  method: "GET"
+}).then(function (response) {
+  console.log(response)
+})
+};
+eventid1();
