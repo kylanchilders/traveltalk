@@ -13,7 +13,7 @@ function google() {
   console.log(search)
   secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
   queryautocom = "https://cors-anywhere.herokuapp.com/" + secondURL;
-  $("#eventCardBody").empty();
+  $(".uk-slider-items").empty();
   
   $.ajax({
     url: queryautocom,
@@ -48,7 +48,7 @@ function eventbrite() {
     var eventId = event.id;
     var template = `
       <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem; order: 1" tabindex="-1" class="uk-active">
-          <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
+          <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap" style="height: 165px;">
           <div class="card-body">
               <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
               <h6>Date of Event: <span id="eventDate##EVENT-ID##"></span></h6>
