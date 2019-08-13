@@ -8,10 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css">
 
 </head>
 
@@ -30,19 +37,37 @@
     
     </div>
                
-    
-    
 
-
-
-    <div class="form-group row">
-        <label for="email-input">Enter a City:</label>
-        <input class="form-control" id="search-name" type="city">
-    </div>
-    <button class="btn btn-default" id="search" type="submit">Submit</button>
+    <footer >
+        <nav class="navbar navbar-expand-lg  navbar-dark">
+                <button type="button" class="navbar-toggler navbar-toggle" data-toggle="collapse" data-target="#myNavbar" >
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                                <li class="lists"><a href="#home" id="hbt1" class="btn"><i class="fa fa-home w3-xxxlarge"style="color:white;padding:0;margin:0;"></i></a></li>
+                                <li class="lists"><a href="#news">NEWS</a></li>
+                                <li class="lists"><a href="#contact">CONTACT</a></li>
+                                <li class="lists"><a href="#bookmarks">BOOKMARKS</a></li>
+                                <li class="lists">
+                                 <div class="input-group navbar-right" id="ig1">
+                                        <input type="text" class="form-control" id="search-name" placeholder="Enter a City">
+                                                <div class="input-group-append">
+                                                         <button class="btn btn-secondary" id="submit" type="button">
+                                                         <i class="fa fa-search"></i>
+                                                         </button>
+                                                 </div>
+                                 </div>
+                                 </li>
+                         </ul>
+                </div>
+                                       
+         </nav>
+        </footer>    
     <div class="modal">
         <!-- Place at bottom of page -->
     </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

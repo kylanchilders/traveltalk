@@ -1,4 +1,13 @@
-
+ .form-group
+ {
+     margin-left: 20px;
+     margin-right: 20px;
+ }
+ .btn 
+ {
+    margin-left: 20px;
+    margin-right: 20px;
+ }
 .locations
 {
     font-family: Georgia, 'Times New Roman', Times, serif
@@ -19,21 +28,22 @@ footer
 {
     width:100%;
 }
-.navbar {
+.navbar 
+{
     border-radius: 0;
     background-color:#1E1E1E;
     margin:0;
     padding:0;
-  }
-  .lists
-  {
+}
+.lists
+{
       float: left;
-      font-size: 15px;
+      font-size: 20px;
       font-weight: bolder;
       height: 50px;
-  } 
-   .lists a
-  {
+} 
+.lists a
+{
       display: block;
       padding:8px;
       /* margin-top:10px;
@@ -42,73 +52,86 @@ footer
       text-decoration: none;
       color:white;
       text-align: center;
-  }
+}
 
- .lists a:hover
-  {
+.lists a:hover
+{
       background-color: grey
-  }
-  .fa-home
-  {
+}
+.fa-home
+{
      position: relative;
      top:-15px;
-  } 
-  #ig1
-  {
+} 
+#ig1
+{
       margin-top:10px;
-  }
+}
  
-  .currentLocationButton
-  {
-      background-color: rgb(139, 0, 0);
-      color:white;
-  }
+.currentLocationButton
+{
+    background-color: rgb(139, 0, 0);
+    color:white;
+}
  
- nav{
-    position:fixed;
-    bottom:0;
-    margin:0;
-    padding:0;
-    overflow: hidden;
- }
- html{
-     overflow: hidden;
-     height:100%;
-     padding:0;
-     margin:0;
- }
- body{
-    min-height: 100%;
-     overflow: auto;
-    padding:0;
-    margin:0;
- }
-
- .card {
-    padding:0;
-    margin:0;
-    float: left;
+nav
+{
+  position:fixed;
+  bottom:0;
+  margin:0;
+  padding:0;
+  overflow: hidden;
+}
+html
+{
+  overflow: hidden;
+  height:100%;
+  padding:0;
+  margin:0;
+}
+body
+{
+  min-height: 100%;
+  overflow: auto;
+  padding:0;
+  margin:0;
 }
 
-.modal {
-    display:    none;
-    position:   fixed;
-    z-index:    1000;
-    top:        0;
-    left:       0;
-    height:     100%;
-    width:      100%;
-    background: rgba( 255, 255, 255, .8 ) 
-                url('../images/loader.svg') 
-                50% 50% 
-                no-repeat;
+.card
+{
+  padding:0;
+  margin:0;
+  float: left;
 }
 
-body.loading .modal {
-    overflow: hidden;   
+.modal 
+{
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 ) 
+              url('../images/loader.svg') 
+              50% 50% 
+              no-repeat;
+}
+
+body.loading .modal 
+{
+  overflow: hidden;   
 }
 
 
-body.loading .modal {
-    display: block;
+body.loading .modal 
+{
+  display: block;
+}
+
+.text-center 
+{
+    position: absolute;
+    bottom: 0;
 }
