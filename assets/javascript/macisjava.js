@@ -4,7 +4,7 @@ var bookmark = [];
 function addEventCard(event){
     var eventId = event.id;
     var template = `
-        <div id="eventCard##EVENT-ID##" class="card" style="width: 18rem;">
+        <div id="eventCard##EVENT-ID##" class="card" style="width:18rem;background-color:black;height:100px;">
             <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
             <div class="card-body">
                 <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
@@ -21,8 +21,6 @@ function addEventCard(event){
     `;
     template = template.replace(/##EVENT-ID##/g, eventId);
     $("#eventCardBody").append(template);
-    
-
     $("#eventPhoto" + eventId).attr("src", event.logo.original.url);
     $("#eventTitle" + eventId).text(event.name.text);
     $("#eventDate" + eventId).text(moment(event.start.local).format('MMMM Do YYYY, h:mm a'));
