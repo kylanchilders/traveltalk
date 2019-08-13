@@ -5,7 +5,7 @@ function ready(fn) {
     document.addEventListener('DOMContentLoaded', fn);
   }
 }
-var selectedRating = 0;
+
 ready(function(){
   function addClass(el, className) {
     if(typeof el.length == "number") {
