@@ -18,56 +18,43 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel = "stylesheet" href="style.css">
   </head>
-  <body id="signUpBody">
+  <body id="contactBody">
     <div class = "row" style="height:200px;"></div>
     <div class="row">
 
       <div class="col-lg-4">
-          
+         
       </div>
       <div class="col-lg-4">
-          <div class="card" id="signUpCard">
-              <div class="card-header" style="background-color:black;color: white;font-size:18px;">
-                      Register.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Already a member?<button type="button" id="button2" class="btn btn-danger" style="float: right">LogIn</button>
-              </div>
-          <div class="card-body">
-            <form>
-                <label class="card-title">Name</label>
-                <br>
-                <input  style="width:100%"onfocus="this.placeholder = ''" placeholder="Enter your name here" type="text" id="text1" class="card-text" style="width:700px">
-                <br>
-                <label class="card-title">Email</label>
-                <br>
-                <input style="width:100%"  type="email" onfocus="this.placeholder = ''" placeholder="Enter your emailId here"   id="email1" pattern = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;"class="card-text" style="width:700px" required>
-                <br>
-                <label class="card-title">Age</label>
-                <br>
-                <input  style="width:100%" onfocus="this.placeholder = ''" placeholder="Enter your Age here" type="text" id="text2" class="card-text" style="width:700px">
-                <br>
-                <label class="card-title">Gender</label>
-                <br>
-                <select class="form-control" id="select1">
-                    <option>Select</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                </select>
-                <br>
-                <label class="card-title">Password</label>
-                <br>
-                <input style="width:100%" onfocus="this.placeholder = ''" placeholder="Enter your password here" type="password"  id="password1" class="card-text" style="width:700px" required>
-                <br>
-                <br>
-                <button type="button" id="button1" class="btn btn-danger">Register</button>
-      
-            </form>
-                  
-          </div>
-      </div>
+            <div class="card" id="signUpCard">
+                    <div class="card-header" style="background-color:black;color: white;font-size:18px;">
+                          <h4>Contact Us</h4>
+                    </div>
+                <div class="card-body">
+                  <form>
+                      <input style="width:100%"  type="email" onfocus="this.placeholder = ''" placeholder="Enter your emailId here"   id="email1" pattern = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;"class="card-text" style="width:700px" required>
+                      <br>
+                      <br>
+                      <select class="form-control" id="select1">
+                              <option>What's it about</option>
+                              <option>Registeration Problem</option>
+                              <option>LogIn Problem</option>
+                          </select>
+                          <br>
+                      <input  style="width:100%;height: 40px;" onfocus="this.placeholder = ''" placeholder="Go ahead.. we're listening" type="textarea" id="text2" class="card-text" style="width:700px">
+                      <br>
+                      <br>
+                      <button type="button" id="submitButton1" class="btn btn-danger">Submit</button>
+            
+                  </form>
+                        
+                </div>
+            </div>
          
       </div>
       <div class="col-lg-4"></div>
     </div>
-    <div class="row" style="height:80px;"></div>
+    <div class="row" style="height:270px;"></div>
 
     <footer>
         <nav class="navbar navbar-expand-lg  navbar-dark">
@@ -76,7 +63,7 @@
                         <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                        <ul id="navBarMain"class="navbar-nav mr-auto mt-2 mt-lg-0 top-text">
+                        <ul id="navBarMain" class="navbar-nav mr-auto mt-2 mt-lg-0 top-text">
                                 <li class="lists"><a href="index.html" id="hbt1" class="btn"><i
                                                         class="fa fa-home w3-xxxlarge"
                                                         style="color:white;padding:0;margin:0;"></i></a>
@@ -95,7 +82,7 @@
                                         </div>
                                 </li>
                                 <li class="lists" style="position: relative;top:5px;left:400px;bottom:5px;"> <button id="signUp1"class="btn btn-danger" type="button" >SignUp<i class="glyphicon glyphicon-user" style="font-size:18px;color:white;"></i></button></li>
-                                <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logIn1"class="btn btn-danger" type="button" >LogIn<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
+                                <li class="lists"  style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logIn1"class="btn btn-danger" type="button" >LogIn<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
                                 <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logOut1"class="btn btn-danger" type="button" >LogOut<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
                         </ul>
                 </div>

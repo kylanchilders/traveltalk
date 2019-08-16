@@ -32,7 +32,7 @@ footer
       font-weight: bolder;
       height: 50px;
   } 
-   .lists a
+   .lists a,#loginUser
   {
       display: block;
       padding:8px;
@@ -100,4 +100,37 @@ footer
 {
     position: relative;
     top:450px;
+}
+#signUpBody
+{
+    background: url('UI_images/eventSignUp.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+#signUpCard
+{
+    width:100%;
+
+}
+.infoId1
+{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+#loginBody
+{
+    background: url('UI_images/loginImage.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+#loginCard
+{
+    width:100%;
+}
+#contactBody
+{
+    background: url('UI_images/contactImage.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+#careerBody
+{
+    background: url('UI_images/careers.jpeg') no-repeat center center fixed;
+    background-size: cover;
 }

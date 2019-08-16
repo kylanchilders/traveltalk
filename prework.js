@@ -5,6 +5,26 @@ $(document).ready(function()
 var latitude="";
 var longitude="";
 var pageNumber = 0;
+$("#logOut1").hide();
+var localValue = localStorage.getItem("userName");
+        //alert(localValue);
+
+       if(localValue)
+      {
+        // loggedInUser=;
+            // console.log(loggedInUser);
+            console.log(localValue);
+            $("#navBarMain").append("<li class='lists' id='loginUser'>"+localValue+"</li>");
+            console.log("appended");
+          $("#logOut1").show();
+          $("#logIn1").hide();
+          $("#signUp1").hide();
+      }
+      else
+      {
+        console.log("Nothing");
+      }
+     
 if(navigator.geolocation)
 {
     navigator.geolocation.getCurrentPosition(function(position)
@@ -66,7 +86,7 @@ if(navigator.geolocation)
         }).then(function(response){
           console.log(response);
           $(".infoId1").attr("style", "height:430px;width:180px;border: 3px solid white")
-          $(".infoId1").append("<h3 style='margin:5 0 0 0'>Current Weather</h3><h4 style='margin:0'>Temp: " + response[0].Temperature.Imperial.Value + "</h4><h4 style='margin:0'>Conditions: " + response[0].WeatherText + "</h4>");
+          $(".infoId1").append("<h3 style='margin:5 0 0 0;font-size:17px;font-weight:bold;'>Current Weather</h3><h4 style='margin:0; font-size:20px;'>Temp: " + response[0].Temperature.Imperial.Value + "F</h4><br><h4 style='margin:0;font-size:20px;'>Conditions: " + response[0].WeatherText + "</h4>");
         });
 
                         
@@ -265,6 +285,19 @@ var d = dateToday.getDate();
   {
     window.open("preworkSignUp.html");
   })
+  $("#logIn1").on("click",function()
+  {
+    window.open("preworkLogIn.html");
+  })
+  $("#logOut1").on("click",function()
+    {
+      $("#logOut1").hide();
+      $("#signUp1").show();
+      $("#logIn1").show();
+      $("#loginUser").hide();
+      localStorage.clear();
+      
+    })
 })
 
     
