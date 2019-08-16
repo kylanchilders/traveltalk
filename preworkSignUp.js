@@ -1,4 +1,5 @@
-var firebaseConfig = {
+
+  var firebaseConfig = {
     apiKey: "AIzaSyDCrkvNi0NrUuzyTIvMG59e58fAhl_p6Mk",
     authDomain: "traveltalk-1e69b.firebaseapp.com",
     databaseURL: "https://traveltalk-1e69b.firebaseio.com",
@@ -19,9 +20,9 @@ var firebaseConfig = {
   var checkValueFound =false;
   var arrName=[];
     var arrPassword = [];
-    var localValue = localStorage.getItem("userName");
     $("#logOut1").hide();
-        alert(localValue);
+    var localValue = localStorage.getItem("userName");
+   
        if(localValue)
       {
         // loggedInUser=;
@@ -31,6 +32,7 @@ var firebaseConfig = {
             console.log("appended");
             $("#logOut1").show();
           $("#logIn1").hide();
+          $("#signUp1").hide();
       }
       else
       {
@@ -108,7 +110,7 @@ $("#button1").on("click",function()
         localStorage.setItem("userName",foundUserName);
         localStorage.setItem("userPassword",foundUserPassword);
         var localValue = localStorage.getItem("userName");
-        alert(localValue);
+       
        if(localValue)
       {
         // loggedInUser=;
@@ -118,6 +120,7 @@ $("#button1").on("click",function()
             console.log("appended");
             $("#logOut1").show();
             $("#logIn1").hide();
+            $("#signUp1").hide();
       }
       else
       {
@@ -130,9 +133,18 @@ $("#button1").on("click",function()
         window.open("preworkSignUp.html","_self");
       }
     })
+    $("#logOut1").on("click",function()
+    {
+      $("#logOut1").hide();
+      $("#signUp1").show();
+      $("#logIn1").show();
+      $("#loginUser").hide();
+      localStorage.clear();
+    })
     database.ref().on("child_added",function(snapshot)
     {
       console.log("Entered databaser read");
         arrName.push(snapshot.val().dbName);
         arrPassword.push(snapshot.val().dbPassword);
  })
+

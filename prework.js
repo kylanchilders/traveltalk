@@ -7,7 +7,7 @@ var longitude="";
 var pageNumber = 0;
 $("#logOut1").hide();
 var localValue = localStorage.getItem("userName");
-        alert(localValue);
+        //alert(localValue);
 
        if(localValue)
       {
@@ -18,6 +18,7 @@ var localValue = localStorage.getItem("userName");
             console.log("appended");
           $("#logOut1").show();
           $("#logIn1").hide();
+          $("#signUp1").hide();
       }
       else
       {
@@ -288,6 +289,15 @@ var d = dateToday.getDate();
   {
     window.open("preworkLogIn.html");
   })
+  $("#logOut1").on("click",function()
+    {
+      $("#logOut1").hide();
+      $("#signUp1").show();
+      $("#logIn1").show();
+      $("#loginUser").hide();
+      localStorage.clear();
+      
+    })
 })
 
     
