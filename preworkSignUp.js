@@ -15,7 +15,41 @@ var firebaseConfig = {
   var gender;
   var password;
   var database = firebase.database();
-  
+  var valueFound = false;
+  var checkValueFound =false;
+  var arrName=[];
+    var arrPassword = [];
+    var localValue = localStorage.getItem("userName");
+    $("#logOut1").hide();
+        alert(localValue);
+       if(localValue)
+      {
+        // loggedInUser=;
+            // console.log(loggedInUser);
+            console.log(localValue);
+            $("#navBarMain").append("<li class='lists' id='loginUser'>"+localValue+"</li>");
+            console.log("appended");
+            $("#logOut1").show();
+          $("#logIn1").hide();
+      }
+      else
+      {
+        console.log("Nothing");
+      }
+
+    $("#submitButton1").on("click",function()
+    {
+      alert("Submitted successfully");
+      window.open("index.html","_self");
+    })
+    $("#signUp1").on("click",function()
+  {
+    window.open("preworkSignUp.html");
+  })
+  $("#logIn1").on("click",function()
+  {
+    window.open("preworkLogIn.html");
+  })
 $("#button1").on("click",function()
     {
         console.log("clicked");
@@ -34,4 +68,71 @@ $("#button1").on("click",function()
         };
        
         database.ref().child(name).set(userNameObject);
+        alert("Successfully SignedUp");
+        window.open("preworkLogIn.html","_self");
     })
+    $("#button2").on("click",function()
+    {
+      console.log("LogIn");
+      window.open("preworkLogIn.html","_self");
+    })
+
+    $("#logInButton1").on("click",function()
+    {
+      var userInputName = $("#loginText1").val();
+      var userInputPassword = $("#loginPassword1").val();
+    var foundUserName = null;
+    var foundUserPassword = null;
+      console.log(arrName);
+      console.log(arrPassword);
+      for(var i= 0;i<arrName.length;i++)
+      {
+        if(arrName[i] === userInputName)
+        {
+          foundUserName = arrName[i];
+        }
+      }
+      for(var i =0;i<arrPassword.length;i++)
+      {
+        if(arrPassword[i] === userInputPassword)
+        {
+          foundUserPassword = arrPassword[i];
+        }
+      }
+      if(foundUserName !== null && foundUserPassword !== null)
+      {
+        var success;
+        var loggedInUser;
+        alert("LogIn Successful");
+       // window.open("maps.html","_self");
+        localStorage.setItem("userName",foundUserName);
+        localStorage.setItem("userPassword",foundUserPassword);
+        var localValue = localStorage.getItem("userName");
+        alert(localValue);
+       if(localValue)
+      {
+        // loggedInUser=;
+            // console.log(loggedInUser);
+            console.log(localValue);
+            $("#navBarMain").append("<li class='lists' id='loginUser'>"+localValue+"</li>");
+            console.log("appended");
+            $("#logOut1").show();
+            $("#logIn1").hide();
+      }
+      else
+      {
+        console.log("Nothing");
+      }
+        
+      }
+      else{
+        alert("You are not registered.Register First!!");
+        window.open("preworkSignUp.html","_self");
+      }
+    })
+    database.ref().on("child_added",function(snapshot)
+    {
+      console.log("Entered databaser read");
+        arrName.push(snapshot.val().dbName);
+        arrPassword.push(snapshot.val().dbPassword);
+ })
