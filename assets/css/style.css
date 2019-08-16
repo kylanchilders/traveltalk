@@ -78,8 +78,8 @@ footer
      margin:0;
  }
  body{
-    min-height: 100%;
-     overflow: auto;
+    height: 100%;
+    overflow: auto;
     padding:0;
     margin:0;
  }
@@ -90,7 +90,7 @@ footer
     float: left;
 }
 
-.modal {
+#modal {
     display:    none;
     position:   fixed;
     z-index:    1000;
@@ -104,11 +104,15 @@ footer
                 no-repeat;
 }
 
-body.loading .modal {
+body.loading #modal {
     overflow: hidden;   
 }
 
 
-body.loading .modal {
+body.loading #modal {
     display: block;
+}
+
+.modal {
+    overflow-y:auto;
 }
