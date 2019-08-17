@@ -1,4 +1,3 @@
-
 //make a city search and then take those results and pass them into 
 var map;
 var latitude = parseFloat(localStorage.getItem("latitude"));
@@ -34,20 +33,25 @@ function addEventCard(event){
   // we are going to write it like: onclick="functionName('##EVENT-ID##'); return false;"
   // the return false prevents the page from reloading to the top
   var template = `
-      <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem;" tabindex="-1" class="uk-active">
-          <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
-          <div class="card-body">
-              <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
-              <h6>Date of Event: <span id="eventDate##EVENT-ID##"></span></h6>
-              <p id="eventDescription##EVENT-ID##" class="card-text"></p>
-              <div id="fullEventDescription##EVENT-ID##" style="display: none;"></div>
-              <div id="eventLocation##EVENT-ID##" style="display: none;"></div>
+  <li class="card eventCard##EVENT-ID##" style="width: 18rem; order: 1" tabindex="-1" class="uk-active">
+  <img id = "eventPhoto##EVENT-ID##" class="card-img-top eventPhoto##EVENT-ID##" src="" alt="Card image cap" style="height: 165px;">
+  <div class="card-body">
+      <h4 id="eventTitle##EVENT-ID##" class="eventTitle##EVENT-ID##" style="text-align: center"></h4>
+      <h6>Date of Event: <span id="eventDate##EVENT-ID##" class="eventDate##EVENT-ID##"></span></h6>
+              <p id="eventDescription##EVENT-ID##" class="eventDescription##EVENT-ID## card-text"></p>
               <br>
+              <div class="ratingArea##EVENT-ID##">
+                <p style="margin: 0;">Venue Rating:</p>
+                <img src="./assets/images/star-icon-empty.png" class="1star##EVENT-ID##" style="height: 20px; width: 20px;" onclick="1star('##EVENT-ID##'); return false;">
+                <img src="./assets/images/star-icon-empty.png" class="2star##EVENT-ID##" style="height: 20px; width: 20px;">
+                <img src="./assets/images/star-icon-empty.png" class="3star##EVENT-ID##" style="height: 20px; width: 20px;">
+                <img src="./assets/images/star-icon-empty.png" class="4star##EVENT-ID##" style="height: 20px; width: 20px;">
+                <img src="./assets/images/star-icon-empty.png" class="5star##EVENT-ID##" style="height: 20px; width: 20px;">
+              </div>
               <div class="row text-center">
                   <a  id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="margin: 5px" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
                   <a id="removeEventButton##EVENT-ID##" href="#" class="removeEventButton btn btn-primary" style="margin: 5px" onclick="removeEventFromBookmark('##EVENT-ID##'); return false;">-</a>
-                  <a  id="eventRatingButton##EVENT-ID##" href="#" class="eventRatingButton btn btn-primary" style="margin: 5px" onclick="locationRatingButton('##EVENT-ID##'); return false;">*</a>
-                  <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 5px">More Info</a>
+                  <a id="moreInfoButton##EVENT-ID##" data-toggle="modal" data-target="#exampleModalLong##EVENT-ID##" class="btn btn-primary" style="margin: 10px">More Info</a>
               </div>
           </div>
       </li>
@@ -57,6 +61,39 @@ function addEventCard(event){
   // the small g identifies its going to specify every occurance of that string
   // the second parameter is what we are going to replace it with, here we are replacing with the eventId
   template = template.replace(/##EVENT-ID##/g, eventId);
+
+  var modalTemplate = `
+    <div class="modal fade" id="exampleModalLong##EVENT-ID##" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <div class="modal-body">
+      <img class="card-img-top eventPhoto##EVENT-ID##" src="" alt="Card image cap" style="height: 165px; width: 300px; display: block; margin-left: auto; margin-right: auto;">
+      <div class="card-body">
+          <h4 class="eventTitle##EVENT-ID##" style="text-align: center"></h4>
+          <h6 style="margin:0;">Date of Event: <span class="eventDate##EVENT-ID##"></span></h6>
+          <h6 style="margin:0;">Location: <span class="venueName##EVENT-ID##"></span></h6>
+          <h6 style="margin:0;"><span class="venueAddress1##EVENT-ID##"></span></h6>
+          <h6 style="margin:0;"><span class="venueAddress2##EVENT-ID##"></span></h6>
+          <p class="card-text fullEventDescription##EVENT-ID##"></p>
+          </div>
+          <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+  </div>
+</div>
+</div>
+`;
+
+modalTemplate = modalTemplate.replace(/##EVENT-ID##/g, eventId);
+$("body").after(modalTemplate);
+
   // using the .append() function
   // using jQuery selecting the ".uk-slider-items" id from the html and append() the template to it
   $(".uk-slider-items").append(template);
@@ -67,17 +104,90 @@ function addEventCard(event){
   // add and attribute with .attr("src") 
   // using our (event) we are using in our function we are going to return the value of that events logo.original.url
   // that will return the url for the events photo so we can display it in our "#eventPhoto" div
-  $("#eventPhoto" + eventId).attr("src", event.logo.original.url);
-  $("#eventTitle" + eventId).text(event.name.text);
-  // using moment to format the event date to display it in a more friendly way
-  $("#eventDate" + eventId).text(moment(event.start.local).format('MMMM Do YYYY, h:mm a'));
-  // taking the text of our ventDescription and caping the text at 150 characters
-  $("#eventDescription" + eventId).text(event.description.text.substring(0, 150) + "...");
-  // this is storing the entire eventDescription
-  $("#fullEventDescription" + eventId).text(event.description.text);
-  $("#eventLocation" + eventId).text(event.venue.name);
-  $("#moreInfoButton" + eventId).attr("href", event.url);
+  $(".eventPhoto" + eventId).attr("src", event.logo.original.url);
+    $(".eventTitle" + eventId).text(event.name.text);
+    $(".eventDate" + eventId).text(moment(event.start.local).format('MMMM Do YYYY, h:mm a'));
+    $(".eventDescription" + eventId).text(event.description.text.substring(0, 150) + "...");
+    $(".moreInfoButton" + eventId).attr("href", event.url);
+    $(".fullEventDescription" + eventId).text(event.description.text);
+    $(".venueName" + eventId).text(event.venue.name);
+    $(".venueAddress1" + eventId).text(event.venue.address.address_1);
+    $(".venueAddress2" + eventId).text(event.venue.address.city + ", " + event.venue.address.region + " " + event.venue.address.postal_code);
 
+
+    var userRating
+    var numberOfRatings
+    var initialRating
+
+    $(".1star" + eventId).on("click", function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      userRating = 1;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
+
+    $(".2star" + eventId).click(function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      userRating = 2;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
+
+    $(".3star" + eventId).click(function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      userRating = 3;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
+
+    $(".4star" + eventId).click(function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      userRating = 4;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
+
+    $(".5star" + eventId).click(function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      userRating = 5;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
 };
 
 // Here we have a similar function to the one called addEventCard
@@ -233,7 +343,7 @@ $("#search-name").on('keyup', function (e) {
 });
 
 
-$("#search").on("click", function () {
+$("#submit").on("click", function () {
   var search = $("#search-name").val();
   console.log(search)
   secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
@@ -424,4 +534,3 @@ $("#hKButton").on("click", function(){
     console.log(localStorage)
     window.location = "./maps.html";
 });
-  

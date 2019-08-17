@@ -1,35 +1,261 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">  
+<head>
+        <link rel="stylesheet" href="reset.css">
+        <title>Title</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+                crossorigin="anonymous">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css" />
+        <link rel="stylesheet" href="style.css">
 </head>
-  <body>
-    <div id = container>
-    <div id="map" style="height: 600px;"></div>
-  </div>
-  <div id="eventCardBody"></div>
-    <div class="form-group row">
-        <label for="email-input">Email:</label>
-        <input class="form-control" id="search-name" type="city">
-      </div>
-      <button class="btn btn-default" id="search" type="submit">Submit</button>
-    
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="./assets/javascript/click.js"></script>
-    <script src ="./assets/javascript/moment.js"></script>
-    <div id=script></div>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&libraries=places&callback=initMap" ></script>
+
+<body>
+        <div class="">
+
+        </div>
+        <div id="mainDiv1">
+
+                <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1"
+                        uk-slideshow=" animation: scale">
+
+                        <ul class="uk-slideshow-items" uk-height-viewport="offset-top: true; offset-bottom:50px;">
+                                <li>
+                                        <img id="image1" src="./UI_images/seattleImage1.jpeg" alt="seattle" uk-cover>
+
+                                        <div class="uk-position-top-center uk-position-large uk-text-center uk-light">
+                                                <h2 class="cityClass" id="locationId1"></h2>
+                                        </div>
+                                        <div class="uk-position-center-center uk-position-large uk-text-center uk-dark">
+                                                <img src="UI_images/travel_logo1.png" width="100px" height="100px">
+                                        </div>
+                                        <div class="uk-position-top-right uk-position-large uk-text-center uk-dark">
+                                                <div id="infoId1" class="infoId1"
+                                                        style="height:230px;width:180px;border: 3px solid white">
+                                                        <h3 class="uk-margin-remove months"></h3>
+                                                        <h2 class="uk-margin-remove dates"></h2>
+                                                        <i class="material-icons"
+                                                                style="font-size:48px;color:green">person_pin</i>
+                                                        <h5 class="uk-margin-remove currentCity"></h5>
+                                                        </br>
+
+                                                        <button type="button" class="btn btn-danger" id = "seaButton">Events & Info</a></button>
+
+                                                        <!-- <button class="currentLocationButton">Events & Info</button> -->
+                                                </div>
+                                        </div>
+                                        <div class="row eventsList">
+                                                <div class="col-lg-2"></div>
+                                                <div class="col-lg-8">
+                                             
+                                                </div>
+                                        </div>
+
+
+                                </li>
+                                <li>
+                                        <img id="image2" src="./UI_images/sfImage1.jpeg" alt="sanfrancisco" uk-cover>
+                                        <div
+                                                class="uk-position-top-center uk-position-large uk-text-center uk-light">
+                                                <h2 class="cityClass" id="locationId2"></h2>
+                                        </div>
+                                        <div class="uk-position-center-center uk-position-large uk-text-center uk-dark">
+                                                <img src="UI_images/travel_logo1.png" width="100px" height="100px">
+                                        </div>
+                                        <div class="uk-position-top-right uk-position-large uk-text-center uk-dark">
+                                                <div id="infoId1" class="infoId1"
+                                                        style="height:230px;width:180px;border: 3px solid white">
+                                                        <h3 class="uk-margin-remove months"></h3>
+                                                        <h2 class="uk-margin-remove dates"></h2>
+                                                        <i class="material-icons"
+                                                                style="font-size:48px;color:green">person_pin</i>
+                                                        <h5 class="uk-margin-remove currentCity"></h5>
+
+                                        </br>
+                                        <button type="button" class="btn btn-danger" id = "sanFranButton">Events & Info</button>
+                                                        </div>
+                                         </div>
+                                </li>
+                                <li>
+                                        <img id="image3" src="./UI_images/parisImage1.jpeg" alt="paris" uk-cover>
+                                        <div
+                                                class="uk-position-top-center uk-position-large uk-text-center uk-light">
+                                                <h2 class="cityClass" id="locationId3"></h2>
+                                        </div>
+                                        <div class="uk-position-center-center uk-position-large uk-text-center uk-dark">
+                                                <img src="UI_images/travel_logo1.png" width="100px" height="100px">
+                                        </div>
+                                        <div class="uk-position-top-right uk-position-large uk-text-center uk-dark">
+                                                <div id="infoId1" class="infoId1"
+                                                        style="height:230px;width:180px;border: 3px solid white">
+                                                        <h3 class="uk-margin-remove months"></h3>
+                                                        <h2 class="uk-margin-remove dates"></h2>
+                                                        <i class="material-icons"
+                                                                style="font-size:48px;color:green">person_pin</i>
+                                                        <h5 class="uk-margin-remove currentCity"></h5>
+
+                                                </br>
+                                                <button type="button" class="btn btn-danger" id = "parisButton">Events & Info</button>
+
+                                                </div>
+                                        </div>
+                                </li>
+                                <li>
+                                        <img id="image4" src="./UI_images/athensImage1.jpeg" alt="athens" uk-cover>
+                                        <div
+                                                class="uk-position-top-center uk-position-large uk-text-center uk-light">
+                                                <h2 class="cityClass" id="locationId4"></h2>
+                                        </div>
+                                        <div class="uk-position-center-center uk-position-large uk-text-center uk-dark">
+                                                <img src="UI_images/travel_logo1.png" width="100px" height="100px">
+                                        </div>
+                                        <div class="uk-position-top-right uk-position-large uk-text-center uk-dark">
+                                                <div id="infoId1" class="infoId1"
+                                                        style="height:230px;width:180px;border: 3px solid white">
+                                                        <h3 class="uk-margin-remove months"></h3>
+                                                        <h2 class="uk-margin-remove dates"></h2>
+                                                        <i class="material-icons"
+                                                                style="font-size:48px;color:green">person_pin</i>
+                                                        <h5 class="uk-margin-remove currentCity"></h5>
+
+                                                </br>
+                                                <button type="button" class="btn btn-danger" id = "athensButton">Events & Info</button>
+
+                                                </div>
+                                        </div>
+                                </li>
+                                <li>
+                                        <img id="image5" src="./UI_images/spainImage1.jpeg" alt="madrid" uk-cover>
+                                        <div
+                                                class="uk-position-top-center uk-position-large uk-text-center uk-light">
+                                                <h2 class="cityClass" id="locationId5"></h2>
+                                        </div>
+                                        <div class="uk-position-center-center uk-position-large uk-text-center uk-dark">
+                                                <img src="UI_images/travel_logo1.png" width="100px" height="100px">
+                                        </div>
+                                        <div class="uk-position-top-right uk-position-large uk-text-center uk-dark">
+                                                <div id="infoId1" class="infoId1"
+                                                        style="height:230px;width:180px;border: 3px solid white">
+                                                        <h3 class="uk-margin-remove months"></h3>
+                                                        <h2 class="uk-margin-remove dates"></h2>
+                                                        <i class="material-icons"
+                                                                style="font-size:48px;color:green">person_pin</i>
+                                                        <h5 class="uk-margin-remove currentCity"></h5>
+
+                                                </br>
+                                                <button type="button" class="btn btn-danger" id = "madridButton">Events & Info</button>
+
+                                                </div>
+                                        </div>
+                                </li>
+                                <li>
+                                        <img id="image6" src="./UI_images/hongkongImage1.jpeg" alt="hongkong" uk-cover>
+                                        <div
+                                                class="uk-position-top-center uk-position-large uk-text-center uk-light">
+                                                <h2 class="cityClass" id="locationId6"></h2>
+                                        </div>
+                                        <div class="uk-position-center-center uk-position-large uk-text-center uk-dark">
+                                                <img src="UI_images/travel_logo1.png" width="100px" height="100px">
+                                        </div>
+                                        <div class="uk-position-top-right uk-position-large uk-text-center uk-dark">
+                                                <div id="infoId1" class="infoId1"
+                                                        style="height:230px;width:180px;border: 3px solid white">
+                                                        <h3 class="uk-margin-remove months"></h3>
+                                                        <h2 class="uk-margin-remove dates"></h2>
+                                                        <i class="material-icons"
+                                                                style="font-size:48px;color:green">person_pin</i>
+                                                        <h5 class="uk-margin-remove currentCity"></h5>
+
+                                                </br>
+                                                <button type="button" class="btn btn-danger" id = "hKButton">Events & Info</button>
+
+                                                </div>
+                                        </div>
+                                </li>
+                        </ul>
+
+                        <a id="previousSlide1" class="uk-position-center-left uk-position-small uk-hidden-hover"
+                                href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                        <a id="nextSlide1" class="uk-position-center-right uk-position-small uk-hidden-hover" href="#"
+                                uk-slidenav-next uk-slideshow-item="next"></a>
+
+                </div>
+
+
+
+
+                <footer>
+                        <nav class="navbar navbar-expand-lg  navbar-dark">
+                                <button type="button" class="navbar-toggler navbar-toggle" data-toggle="collapse"
+                                        data-target="#myNavbar">
+                                        <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="myNavbar">
+                                        <ul id="navBarMain"class="navbar-nav mr-auto mt-2 mt-lg-0 top-text">
+                                                <li class="lists"><a href="index.html" id="hbt1" class="btn"><i
+                                                                        class="fa fa-home w3-xxxlarge"
+                                                                        style="color:white;padding:0;margin:0;"></i></a>
+                                                </li>
+                                                <li class="lists"><a href="contact.html">CONTACT</a></li>
+                                                <li class="lists"><a href="career.html">CAREERS</a></li>
+                                                <li class="lists" id= "bookmark1"><a href="bookmarks.html">BOOKMARKS</a></li>
+                                                <li class="lists">
+                                                        <div class="input-group navbar-right" id="ig1">
+                                                                <input type="text" class="form-control"
+                                                                        placeholder="Search the location">
+                                                                <div class="input-group-append">
+                                                                        <button id="search1"class="btn btn-secondary" type="button">
+                                                                                <i class="fa fa-search"></i>
+                                                                        </button>
+                                                                </div>
+                                                        </div>
+                                                </li>
+                                                <li class="lists" style="position: relative;top:5px;left:400px;bottom:5px;"> <button id="signUp1"class="btn btn-danger" type="button" >SignUp<i class="glyphicon glyphicon-user" style="font-size:18px;color:white;"></i></button></li>
+                                                <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logIn1"class="btn btn-danger" type="button" >LogIn<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
+                                                <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logOut1"class="btn btn-danger" type="button" >LogOut<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
+                                        </ul>
+                                </div>
+
+                        </nav>
+                </footer>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script src="https://momentjs.com/downloads/moment.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit-icons.min.js"></script>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+        <script src=" https://firebase.google.com/docs/web/setup#config-web-app "></script>
+        <script src="prework.js"></script>
+        <script src="assets/javascript/click.js"></script>
 
 </body>
+
 </html>

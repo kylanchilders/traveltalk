@@ -8,24 +8,89 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel = "stylesheet" href="style.css">
   </head>
-  <body>
-    <div class="card">
-        <div class="card-header">
-          <button type="button" id="backButton1" class="btn btn-primary">Back</button> LogIn 
+  <body id="loginBody">
+      <div class = "row" style="height:200px;"></div>
+      <div class="row">
+  
+        <div class="col-lg-4">
+           
         </div>
-    <div class="card-body">
-            <label class="card-title">Email</label>
-            <br>
-            <input onfocus="this.placeholder = ''" placeholder="Enter your text here" type="text" id="loginText1" class="card-text" style="width:700px">
-            <br>
-            <label class="card-title">Password</label>
-            <br>
-            <input onfocus="this.placeholder = ''" placeholder="Enter your text here" type="password"  id="loginPassword1" class="card-text" style="width:700px" required>
-            <br>
-            <button type="button" id="logInButton1" class="btn btn-primary">LogIn</button>
-    </div>
-</div>
+        <div class="col-lg-4">
+  
+            <div class="card" id="signUpCard">
+                <div class="card-header" style="background-color:black;color: white;font-size:18px;">
+                        Register.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Already a member?<button type="button" id="button2" class="btn btn-danger" style="float: right">LogIn</button>
+                </div>
+            <div class="card-body" id="loginCard">
+              <form>
+                
+                  <label class="card-title">Username</label>
+                  <br>
+                  <input onfocus="this.placeholder = ''" placeholder="Enter your username here" type="text" id="loginText1" class="card-text" style="width:100%" required>
+                  <br>
+                  <label class="card-title">Password</label>
+                  <br>
+                  <input onfocus="this.placeholder = ''" placeholder="Enter your password here" type="password"  id="loginPassword1" class="card-text" style="width:100%;" required>
+                  <br>
+                  <br>
+                  <button type="button" id="logInButton1" class="btn btn-danger">LogIn</button>
+              </form>
+                    
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-4"></div>
+      </div>
+      <div class="row" style="height:300px;"></div>
+
+      <footer>
+          <nav class="navbar navbar-expand-lg  navbar-dark">
+                  <button type="button" class="navbar-toggler navbar-toggle" data-toggle="collapse"
+                          data-target="#myNavbar">
+                          <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="myNavbar">
+                          <ul id="navBarMain" class="navbar-nav mr-auto mt-2 mt-lg-0 top-text">
+                                  <li class="lists"><a href="index.html" id="hbt1" class="btn"><i
+                                                          class="fa fa-home w3-xxxlarge"
+                                                          style="color:white;padding:0;margin:0;"></i></a>
+                                  </li>
+                                  <li class="lists"><a href="contact.html">CONTACT</a></li>
+                                  <li class="lists"><a href="career.html">CAREERS</a></li>
+                                  <li class="lists" id= "bookmark1"><a href="bookmarks.html">BOOKMARKS</a></li>
+                                  <li class="lists">
+                                          <div class="input-group navbar-right" id="ig1">
+                                                  <input type="text" class="form-control"
+                                                          placeholder="Search the location">
+                                                  <div class="input-group-append">
+                                                          <button class="btn btn-secondary" type="button">
+                                                                  <i class="fa fa-search"></i>
+                                                          </button>
+                                                  </div>
+                                          </div>
+                                  </li>
+                                  <li class="lists" style="position: relative;top:5px;left:400px;bottom:5px;"> <button id="signUp1"class="btn btn-danger" type="button" >SignUp<i class="glyphicon glyphicon-user" style="font-size:18px;color:white;"></i></button></li>
+                                  <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logIn1"class="btn btn-danger" type="button" >LogIn<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
+                                  <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logOut1"class="btn btn-danger" type="button" >LogOut<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
+                          </ul>
+                  </div>
+  
+          </nav>
+  </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -34,6 +99,6 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
    <script src=" https://firebase.google.com/docs/web/setup#config-web-app "></script>
-    <script src="prework.js"></script> 
+    <script src="preworkSignUp.js"></script> 
 </body>
 </html>

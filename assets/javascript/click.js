@@ -41,3 +41,44 @@ $("#hKButton").on("click", function(){
     console.log(localStorage)
     window.location = "./maps.html";
 });
+
+function google() {
+    var search = $(".form-control").val();
+    console.log(search)
+    secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
+    queryautocom = "https://cors-anywhere.herokuapp.com/" + secondURL;
+    
+    $.ajax({
+      url: queryautocom,
+      method: "GET",
+      dataType: "json",
+      // this headers section is necessary for CORS-anywhere
+      headers: {
+        "x-requested-with": "xhr"
+      },
+      // error: function (XMLHttpRequest, textStatus, errorThrown) {
+      //   alert("Status: " + textStatus); alert("Error: " + errorThrown);
+      // },
+      success: function (data1) {
+        console.log(queryautocom);
+        longitude = data1.results[0].geometry.location.lng;
+        console.log(longitude);
+        latitude = data1.results[0].geometry.location.lat
+        console.log(latitude)
+        localStorage.setItem("latitude", latitude);
+        localStorage.setItem("longitude", longitude);
+        window.location = "./maps.html"
+      }
+    })
+  };
+
+  $(".form-control").on('keyup', function (e) {
+    if (e.which == 13) {
+      google();
+  
+    }
+  })
+  
+  $("#custom").on("click", function () {
+    google()
+  });
