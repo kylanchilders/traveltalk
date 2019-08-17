@@ -51,9 +51,7 @@ function addEventCard(event){
               <div class="row text-center">
                   <a  id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="margin: 5px" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
                   <a id="removeEventButton##EVENT-ID##" href="#" class="removeEventButton btn btn-primary" style="margin: 5px" onclick="removeEventFromBookmark('##EVENT-ID##'); return false;">-</a>
-                  <a id="moreInfoButton##EVENT-ID##" data-toggle="modal" data-target="#exampleModalLong##EVENT-ID##" class="btn btn-primary" style="margin: 10px">More Info</a>
-              </div>
-          </div>
+                  <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 5px">More Info</a>          </div>
       </li>
   `;
   // within the template we are going to call the .recplace() function which takes in two parameters
@@ -209,10 +207,7 @@ function addEventCardFromDB(event){
                 <a  id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="margin: 5px" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
                 <a id="removeEventButton##EVENT-ID##" href="#" class="removeEventButton btn btn-primary" style="margin: 5px" onclick="removeEventFromBookmark('##EVENT-ID##'); return false;">-</a>
                 <a  id="eventRatingButton##EVENT-ID##" href="#" class="eventRatingButton btn btn-primary" style="margin: 5px" onclick="locationRatingButton('##EVENT-ID##'); return false;">*</a>
-                <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 5px">More Info</a>
-            </div>
-        </div>
-    </li>
+                <a id="moreInfoButton##EVENT-ID##" target="blank" href="#" class="btn btn-primary" style="margin: 5px">More Info</a>    </li>
 `;
   template = template.replace(/##EVENT-ID##/g, eventId);
   $(".uk-slider-items").append(template);
@@ -263,7 +258,14 @@ function displayEventsByLatLong(latitude, longitude) {
   console.log(eventURL);
 };
 
-
+$("#signUp1").on("click",function()
+  {
+    window.open("preworkSignUp.html");
+  })
+  $("#logIn1").on("click",function()
+  {
+    window.open("preworkLogIn.html");
+  })
 // function google() {
 //   var search = $("#search-name").val();
 //   console.log(search)
@@ -484,6 +486,16 @@ function removeEventFromBookmark(eventId){
     });
 
 };
+$("#logOut1").on("click",function()
+    {
+      $("#logOut1").hide();
+       $("#bookmark1").hide();
+      $("#signUp1").show();
+      $("#logIn1").show();
+      $("#loginUser").hide();
+      localStorage.clear();
+      
+    });
 
   $body = $("body");
   $(document).on({
