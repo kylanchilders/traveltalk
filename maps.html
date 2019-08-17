@@ -18,8 +18,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css" />
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 ​
 </head>
 ​
@@ -101,8 +102,8 @@
         <script type="text/javascript">
         $(document).ready(function(){
             $("#logOut1").hide();
-$("#bookmark1").hide();
-var localValue = localStorage.getItem("userName");
+        $("#bookmark1").hide();
+        var localValue = localStorage.getItem("userName");
         //alert(localValue);
 
        if(localValue)
@@ -121,7 +122,7 @@ var localValue = localStorage.getItem("userName");
       {
         console.log("Nothing");
       }
-          displayEventsByLatLong(47.6062, -122.3321);
+          displayEventsByLatLong(localStorage.getItem("latitude"), localStorage.getItem("longitude"));
         });
         </script>
 ​
