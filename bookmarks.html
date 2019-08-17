@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css" />
+
+  </head>
+  
+    <body id="bookmarksBody">
+
+      <div class="row" style="height:200px;"></div>
+
+      <div class="row">
+    
+        <div class="col-lg-5">
+    
+        </div>
+
+        <div class="col-lg-6">
+
+          <h1 style="color: white;font-family: Georgia, 'Times New Roman', Times, serif">Your Bookmarks</h1>
+    
+        </div>
+
+        <div class="col-lg-1">
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+          <div uk-slideshow>
+
+              <ul class="uk-slideshow-items">
+
+              </ul>
+
+          </div>
+
+
+      </div>
+
+
+
+      <div class="row" style="height:520px;"></div>
+      <footer>
+        <nav class="navbar navbar-expand-lg  navbar-dark">
+          <button type="button" class="navbar-toggler navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0 top-text">
+              <li class="lists"><a href="index.html" id="hbt1" class="btn"><i class="fa fa-home w3-xxxlarge"
+                    style="color:white;padding:0;margin:0;"></i></a>
+              </li>
+              <li class="lists"><a href="contact.html">CONTACT</a></li>
+              <li class="lists"><a href="career.html">CAREERS</a></li>
+              <li class="lists"><a href="bookmarkd.html">BOOKMARKS</a></li>
+              <li class="lists">
+                <div class="input-group navbar-right" id="ig1">
+                  <input type="text" class="form-control" placeholder="Search the location">
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" type="button">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="lists"> <button id="signUp1" class="btn btn-danger" type="button"
+                  style="position: relative;top:5px;left:400px;bottom:5px;">SignUp<i class="glyphicon glyphicon-user"
+                    style="font-size:18px;color:white;"></i></button></li>
+              <li class="lists"> <button id="logIn1" class="btn btn-danger" type="button"
+                  style="position: relative;top:5px;left:450px;bottom:5px;">LogIn<i class="fa fa-sign-in"
+                    style="font-size:18px;color:white;"></i></button></li>
+              <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logOut1"
+                  class="btn btn-danger" type="button">LogOut<i class="fa fa-sign-in"
+                    style="font-size:18px;color:white;"></i></button></li>
+            </ul>
+          </div>
+    
+        </nav>
+      </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-database.js"></script>
+    <script src="assets/javascript/moment.js"></script>
+    <script src="assets/javascript/javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit-icons.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+
+        populateBookmarksPage();
+
+      });
+
+    </script>
+
+  </body>
+
+</html>
