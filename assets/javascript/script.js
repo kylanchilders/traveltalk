@@ -161,19 +161,3 @@ $(document).on({
 
 
 eventbrite();
-
-var eventid = 65119628562
-
-function eventid1(){
-  var auth = "S5UUTS2NYPECCKBYF5JY";
-var eventAuth = "https://www.eventbrite.com/oauth/authorize?response_type=code&client_id="+ auth +"&redirect_uri="
-var eventURL1 = "https://www.eventbriteapi.com/v3/events/" + eventid + "/";
-var eventFinal = "https://www.eventbriteapi.com/v3/events/search/?token=" + auth + "&event.id=" + eventid + "&expand=venue";
-$.ajax({
-  url: eventFinal,
-  method: "GET"
-}).then(function (response) {
-  console.log(response)
-})
-};
-eventid1();
