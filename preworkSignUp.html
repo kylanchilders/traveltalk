@@ -34,15 +34,15 @@
             <form>
                 <label class="card-title">Name</label>
                 <br>
-                <input  style="width:100%"onfocus="this.placeholder = ''" placeholder="Enter your name here" type="text" id="text1" class="card-text" style="width:700px">
+                <input  style="width:100%"onfocus="this.placeholder = ''" placeholder="Enter your name here" type="text" id="text1" class="card-text" style="width:700px" required>
                 <br>
                 <label class="card-title">Email</label>
                 <br>
-                <input style="width:100%"  type="email" onfocus="this.placeholder = ''" placeholder="Enter your emailId here"   id="email1" pattern = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;"class="card-text" style="width:700px" required>
+                <input style="width:100%"  type="email" onfocus="this.placeholder = ''" placeholder="Enter your emailId here"   id="email1" class="card-text" style="width:700px" required>
                 <br>
                 <label class="card-title">Age</label>
                 <br>
-                <input  style="width:100%" onfocus="this.placeholder = ''" placeholder="Enter your Age here" type="text" id="text2" class="card-text" style="width:700px">
+                <input  style="width:100%" onfocus="this.placeholder = ''" placeholder="Enter your Age here" type="text" id="text2" class="card-text" style="width:700px" required>
                 <br>
                 <label class="card-title">Gender</label>
                 <br>
@@ -57,8 +57,7 @@
                 <input style="width:100%" onfocus="this.placeholder = ''" placeholder="Enter your password here" type="password"  id="password1" class="card-text" style="width:700px" required>
                 <br>
                 <br>
-                <button type="button" id="button1" class="btn btn-danger">Register</button>
-      
+                <button type="button" id="button1" class="btn btn-danger">Register</button> 
             </form>
                   
           </div>
@@ -83,6 +82,7 @@
                                 </li>
                                 <li class="lists"><a href="contact.html">CONTACT</a></li>
                                 <li class="lists"><a href="career.html">CAREERS</a></li>
+                                <li class="lists" id= "bookmark1"><a href="bookmarks.html">BOOKMARKS</a></li>
                                 <li class="lists">
                                         <div class="input-group navbar-right" id="ig1">
                                                 <input type="text" class="form-control"
@@ -108,8 +108,14 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-database.js"></script>
+    <script src="assets/javascript/moment.js"></script>
+    <script src="assets/javascript/javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit-icons.min.js"></script>
+    
+    
    <script src=" https://firebase.google.com/docs/web/setup#config-web-app "></script>
     <script src="preworkSignUp.js"></script>
   </body>
