@@ -5,6 +5,7 @@ var longitude = parseFloat(localStorage.getItem("longitude"));
 var numOfEventsToDisplay = 10;
 var calcLong = 0;
 var calcLat = 0;
+
 var firebaseConfig = {
   apiKey: "AIzaSyDCrkvNi0NrUuzyTIvMG59e58fAhl_p6Mk",
   authDomain: "traveltalk-1e69b.firebaseapp.com",
@@ -14,10 +15,14 @@ var firebaseConfig = {
   messagingSenderId: "903453806895",
   appId: "1:903453806895:web:98061fcb91718e00"
 };
+
 firebase.initializeApp(firebaseConfig);
+
 var database = firebase.database();
+
 var auth = "S5UUTS2NYPECCKBYF5JY";
 var events = [];
+
 // this function that dynamically adds html to the dom 
 // passing our event through as a variable 
 function addEventCard(event){
@@ -28,20 +33,25 @@ function addEventCard(event){
   // we are going to write it like: onclick="functionName('##EVENT-ID##'); return false;"
   // the return false prevents the page from reloading to the top
   var template = `
-      <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem;" tabindex="-1" class="uk-active">
-          <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
-          <div class="card-body">
-              <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
-              <h6>Date of Event: <span id="eventDate##EVENT-ID##"></span></h6>
-              <p id="eventDescription##EVENT-ID##" class="card-text"></p>
-              <div id="fullEventDescription##EVENT-ID##" style="display: none;"></div>
-              <div id="eventLocation##EVENT-ID##" style="display: none;"></div>
+  <li class="card eventCard##EVENT-ID##" style="width: 18rem; order: 1" tabindex="-1" class="uk-active">
+  <img id = "eventPhoto##EVENT-ID##" class="card-img-top eventPhoto##EVENT-ID##" src="" alt="Card image cap" style="height: 165px;">
+  <div class="card-body">
+      <h4 id="eventTitle##EVENT-ID##" class="eventTitle##EVENT-ID##" style="text-align: center"></h4>
+      <h6>Date of Event: <span id="eventDate##EVENT-ID##" class="eventDate##EVENT-ID##"></span></h6>
+              <p id="eventDescription##EVENT-ID##" class="eventDescription##EVENT-ID## card-text"></p>
               <br>
+              <div class="ratingArea##EVENT-ID##">
+                <p style="margin: 0;">Venue Rating:</p>
+                <img src="./assets/images/star-icon-empty.png" class="1star##EVENT-ID##" style="height: 20px; width: 20px;" onclick="1star('##EVENT-ID##'); return false;">
+                <img src="./assets/images/star-icon-empty.png" class="2star##EVENT-ID##" style="height: 20px; width: 20px;">
+                <img src="./assets/images/star-icon-empty.png" class="3star##EVENT-ID##" style="height: 20px; width: 20px;">
+                <img src="./assets/images/star-icon-empty.png" class="4star##EVENT-ID##" style="height: 20px; width: 20px;">
+                <img src="./assets/images/star-icon-empty.png" class="5star##EVENT-ID##" style="height: 20px; width: 20px;">
+              </div>
               <div class="row text-center">
                   <a  id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="margin: 5px" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
                   <a id="removeEventButton##EVENT-ID##" href="#" class="removeEventButton btn btn-primary" style="margin: 5px" onclick="removeEventFromBookmark('##EVENT-ID##'); return false;">-</a>
-                  <a  id="eventRatingButton##EVENT-ID##" href="#" class="eventRatingButton btn btn-primary" style="margin: 5px" onclick="locationRatingButton('##EVENT-ID##'); return false;">*</a>
-                  <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 5px">More Info</a>
+                  <a id="moreInfoButton##EVENT-ID##" data-toggle="modal" data-target="#exampleModalLong##EVENT-ID##" class="btn btn-primary" style="margin: 10px">More Info</a>
               </div>
           </div>
       </li>
@@ -51,26 +61,135 @@ function addEventCard(event){
   // the small g identifies its going to specify every occurance of that string
   // the second parameter is what we are going to replace it with, here we are replacing with the eventId
   template = template.replace(/##EVENT-ID##/g, eventId);
+
+  var modalTemplate = `
+    <div class="modal fade" id="exampleModalLong##EVENT-ID##" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <div class="modal-body">
+      <img class="card-img-top eventPhoto##EVENT-ID##" src="" alt="Card image cap" style="height: 165px; width: 300px; display: block; margin-left: auto; margin-right: auto;">
+      <div class="card-body">
+          <h4 class="eventTitle##EVENT-ID##" style="text-align: center"></h4>
+          <h6 style="margin:0;">Date of Event: <span class="eventDate##EVENT-ID##"></span></h6>
+          <h6 style="margin:0;">Location: <span class="venueName##EVENT-ID##"></span></h6>
+          <h6 style="margin:0;"><span class="venueAddress1##EVENT-ID##"></span></h6>
+          <h6 style="margin:0;"><span class="venueAddress2##EVENT-ID##"></span></h6>
+          <p class="card-text fullEventDescription##EVENT-ID##"></p>
+          </div>
+          <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+  </div>
+</div>
+</div>
+`;
+
+modalTemplate = modalTemplate.replace(/##EVENT-ID##/g, eventId);
+$("body").after(modalTemplate);
+
   // using the .append() function
   // using jQuery selecting the ".uk-slider-items" id from the html and append() the template to it
   $(".uk-slider-items").append(template);
   
+
   // dynamically grab the different html elements and assigning them values from the API call to EventBrite
   // using "#eventPhoto" concatenate with eventId
   // add and attribute with .attr("src") 
   // using our (event) we are using in our function we are going to return the value of that events logo.original.url
   // that will return the url for the events photo so we can display it in our "#eventPhoto" div
-  $("#eventPhoto" + eventId).attr("src", event.logo.original.url);
-  $("#eventTitle" + eventId).text(event.name.text);
-  // using moment to format the event date to display it in a more friendly way
-  $("#eventDate" + eventId).text(moment(event.start.local).format('MMMM Do YYYY, h:mm a'));
-  // taking the text of our ventDescription and caping the text at 150 characters
-  $("#eventDescription" + eventId).text(event.description.text.substring(0, 150) + "...");
-  // this is storing the entire eventDescription
-  $("#fullEventDescription" + eventId).text(event.description.text);
-  $("#eventLocation" + eventId).text(event.venue.name);
-  $("#moreInfoButton" + eventId).attr("href", event.url);
+  $(".eventPhoto" + eventId).attr("src", event.logo.original.url);
+    $(".eventTitle" + eventId).text(event.name.text);
+    $(".eventDate" + eventId).text(moment(event.start.local).format('MMMM Do YYYY, h:mm a'));
+    $(".eventDescription" + eventId).text(event.description.text.substring(0, 150) + "...");
+    $(".moreInfoButton" + eventId).attr("href", event.url);
+    $(".fullEventDescription" + eventId).text(event.description.text);
+    $(".venueName" + eventId).text(event.venue.name);
+    $(".venueAddress1" + eventId).text(event.venue.address.address_1);
+    $(".venueAddress2" + eventId).text(event.venue.address.city + ", " + event.venue.address.region + " " + event.venue.address.postal_code);
+
+
+    var userRating
+    var numberOfRatings
+    var initialRating
+
+    $(".1star" + eventId).on("click", function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      userRating = 1;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
+
+    $(".2star" + eventId).click(function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      userRating = 2;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
+
+    $(".3star" + eventId).click(function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      userRating = 3;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
+
+    $(".4star" + eventId).click(function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+      userRating = 4;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
+
+    $(".5star" + eventId).click(function(){
+      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".4star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      $(".5star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+      userRating = 5;
+      numberOfRatings++;
+      $(".ratingArea" + eventId).delay(1500).queue(function(n){
+        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+        n();
+      });
+    });
 };
+
 // Here we have a similar function to the one called addEventCard
 // this function will run on items we have stored in firebase using our bookmarks option
 function addEventCardFromDB(event){
@@ -96,7 +215,8 @@ function addEventCardFromDB(event){
     </li>
 `;
   template = template.replace(/##EVENT-ID##/g, eventId);
-  $(".uk-slideshow-items").append(template);
+  $(".uk-slider-items").append(template);
+
   // instead of this information coming from our ajax call to EventBrite this is coming from Firebase
   $("#eventPhoto" + eventId).attr("src", event.eventPhoto);
   $("#eventTitle" + eventId).text(event.eventTitle);
@@ -107,13 +227,17 @@ function addEventCardFromDB(event){
   $("#fullEventDescription" + eventId).text(event.fullEventDescription);
   $("#eventLocation" + eventId).text(event.eventLocation);
   $("#moreInfoButton" + eventId).attr("href", event.eventInfo);
+
 };
+
+
 function addMapMarker(event,infowindow) {
   let marker = new google.maps.Marker({
     position: new google.maps.LatLng(event.venue.latitude, event.venue.longitude),
     map: map,
     title: event.name.text
   });
+
   google.maps.event.addListener(marker, 'click', (function (marker) {
     return function () {
       infowindow.setContent(event.name.text);
@@ -121,6 +245,7 @@ function addMapMarker(event,infowindow) {
     }
   })(marker));
 }
+
 function displayEventsByLatLong(latitude, longitude) {
   var eventURL = "https://www.eventbriteapi.com/v3/events/search/?token=" + auth + "&location.longitude=" + longitude + "&location.latitude=" + latitude + "&expand=venue";
   $.ajax({
@@ -137,6 +262,8 @@ function displayEventsByLatLong(latitude, longitude) {
   });
   console.log(eventURL);
 };
+
+
 // function google() {
 //   var search = $("#search-name").val();
 //   console.log(search)
@@ -165,6 +292,8 @@ function displayEventsByLatLong(latitude, longitude) {
 //     }
 //   })
 // };
+
+
 $("#search-name").on('keyup', function (e) {
   if (e.which == 13) {
     var search = $("#search-name").val();
@@ -187,23 +316,34 @@ $("#search-name").on('keyup', function (e) {
         timestamp = data1.results;
         longitude = data1.results[0].geometry.location.lng;
         latitude = data1.results[0].geometry.location.lat
+
         console.log(queryautocom);
         console.log(timestamp);
         console.log(longitude);
         console.log(latitude)
+
+
+
         myLatLng = { lat: latitude, lng: longitude };
+
         map = new google.maps.Map(document.getElementById('map'), {
           center: myLatLng,
           zoom: 12,
           mapTypeId: 'terrain'
         })
+
         $(".uk-slider-items").empty();
         displayEventsByLatLong(latitude, longitude);
+
       }
     })
+
+
   }
 });
-$("#search").on("click", function () {
+
+
+$("#submit").on("click", function () {
   var search = $("#search-name").val();
   console.log(search)
   secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
@@ -225,33 +365,46 @@ $("#search").on("click", function () {
       latitude = data1.results[0].geometry.location.lat
       console.log(longitude);
       console.log(latitude)
+
       $(".uk-slider-items").empty();
       displayEventsByLatLong(latitude, longitude);
+
+
     },
     error: function () {
       console.log("aw crap");
     }
+
   })
 });
+
 function addEventToBookmark(eventId){
   // window.location = "../maps.html";
+
   console.log(eventId);
   var eventTitle = ($("#eventTitle" + eventId).text());
   var eventPhoto = ($("#eventPhoto" + eventId).attr("src"));
   var eventDate = ($("#eventDate" + eventId).text());
   var fullEventDescription = ($("#fullEventDescription" + eventId).text());
   var eventLocation = ($("#eventLocation" + eventId).text());
+
+
   var bookmarksObject = {
+
       eventTitle: eventTitle,
       eventPhoto: eventPhoto,
       eventDate: eventDate,
       fullEventDescription: fullEventDescription,
       eventId: eventId,
       eventLocation: eventLocation
+
   };
+
   localStorage.setItem("eventId", eventId);
+
   // bookmarks.push(bookmarksObject);
   // console.log(bookmarks);
+
   var userName = localStorage.getItem('userName');
   var exists = false;
   database.ref().child(userName+"/bookmarks").once("value", function(snapshot){
@@ -261,15 +414,19 @@ function addEventToBookmark(eventId){
           notify("You already saved this event!");
           exists = true;
       }
+
   }).then(function(snapshot){
       if(!exists){
           database.ref().child(userName+"/bookmarks/"+eventId).set(bookmarksObject).then(function(snapshot){
+
               notify("This has been Added!");
       
           });
       }
   });
+
 };
+
 // this function will be called on page open of the bookmarks 
 function populateBookmarksPage(){
   // using our localStorage we are declaring a new variable called userName
@@ -283,6 +440,8 @@ function populateBookmarksPage(){
       console.log(tempEventCardInfo);
   });
 };
+
+
 function initMap() {
   myLatLng = { lat: latitude, lng: longitude };
   map = new google.maps.Map(document.getElementById('map'), {
@@ -290,28 +449,42 @@ function initMap() {
     zoom: 12,
     mapTypeId: 'terrain'
   })};
+
   function notify(message){
+
     UIkit.notification({
         message: message,
         status: 'success',
         timeout: 2000
     });
+
 };
+
 function locationRatingButton(eventId){
+
     localStorage.setItem("eventTitle", $("#eventTitle" + eventId).text());
     localStorage.setItem("eventLocation", $("#eventLocation" + eventId).text());
+
 };
+
 function removeEventFromBookmark(eventId){
+
     var userName = localStorage.getItem('userName');
+
     database.ref().child(userName+"/bookmarks").orderByChild("bookmarks").on("child_added", function(snapshot){
         if(snapshot.val().eventId == eventId){
             database.ref().child(userName+"/bookmarks/"+eventId).remove().then(function(snapshot){
+
                 notify("This event has been removed!");
+
                 $("#eventCard" + eventId).hide();
+
             });
         }
     });
+
 };
+
   $body = $("body");
   $(document).on({
       ajaxStart: function() { $body.addClass("loading");    },
