@@ -40,7 +40,7 @@
                 
                   <label class="card-title">Username</label>
                   <br>
-                  <input onfocus="this.placeholder = ''" placeholder="Enter your username here" type="text" id="loginText1" class="card-text" style="width:100%">
+                  <input onfocus="this.placeholder = ''" placeholder="Enter your username here" type="text" id="loginText1" class="card-text" style="width:100%" required>
                   <br>
                   <label class="card-title">Password</label>
                   <br>
@@ -71,12 +71,13 @@
                                   </li>
                                   <li class="lists"><a href="contact.html">CONTACT</a></li>
                                   <li class="lists"><a href="career.html">CAREERS</a></li>
+                                  <li class="lists" id= "bookmark1"><a href="bookmarks.html">BOOKMARKS</a></li>
                                   <li class="lists">
                                           <div class="input-group navbar-right" id="ig1">
                                                   <input type="text" class="form-control"
                                                           placeholder="Search the location">
                                                   <div class="input-group-append">
-                                                          <button class="btn btn-secondary" type="button">
+                                                          <button id="custom"class="btn btn-secondary" type="button">
                                                                   <i class="fa fa-search"></i>
                                                           </button>
                                                   </div>
@@ -99,5 +100,6 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
    <script src=" https://firebase.google.com/docs/web/setup#config-web-app "></script>
     <script src="preworkSignUp.js"></script> 
+    <script src="script.js"></script>
 </body>
 </html>
