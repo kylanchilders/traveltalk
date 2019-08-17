@@ -84,7 +84,6 @@
         return false;
       }
 
-  
   console.log("clicked");
   name=$("#text1").val();
   emailId=$("#email1").val();
@@ -101,6 +100,7 @@
   };
  
   database.ref().child(name).set(userNameObject);
+
   window.open("preworkLogIn.html","_self");
   return true;
   
@@ -108,7 +108,7 @@
 
 function loginValidationForm()
 {
-  
+
   if($("#loginText1").val()=== "")
   {
     alert("Please fill the field");
@@ -144,7 +144,9 @@ function loginValidationForm()
       {
         var success;
         var loggedInUser;
+
         
+
 
        //window.open("maps.html","_self");
         localStorage.setItem("userName",foundUserName);
@@ -203,7 +205,7 @@ $("#button1").on("click",validateMyForm);
     {
       console.log("LogIn");
       window.open("preworkLogIn.html","_self");
-    });
+
     $("#logInButton1").on("click",loginValidationForm);
     // $("#logInButton1").on("click",function()
     // {
