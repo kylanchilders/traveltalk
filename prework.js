@@ -6,6 +6,7 @@ var latitude="";
 var longitude="";
 var pageNumber = 0;
 $("#logOut1").hide();
+$("#bookmark1").hide();
 var localValue = localStorage.getItem("userName");
         //alert(localValue);
 
@@ -17,6 +18,7 @@ var localValue = localStorage.getItem("userName");
             $("#navBarMain").append("<li class='lists' id='loginUser'>"+localValue+"</li>");
             console.log("appended");
           $("#logOut1").show();
+           $("#bookmark1").show();
           $("#logIn1").hide();
           $("#signUp1").hide();
       }
@@ -292,12 +294,14 @@ var d = dateToday.getDate();
   $("#logOut1").on("click",function()
     {
       $("#logOut1").hide();
+       $("#bookmark1").hide();
       $("#signUp1").show();
       $("#logIn1").show();
       $("#loginUser").hide();
       localStorage.clear();
       
     })
+
 })
 
     

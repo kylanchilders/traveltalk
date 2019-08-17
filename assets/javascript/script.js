@@ -1,4 +1,3 @@
-
 //make a city search and then take those results and pass them into 
 var map;
 var latitude = parseFloat(localStorage.getItem("latitude"));
@@ -344,7 +343,7 @@ $("#search-name").on('keyup', function (e) {
 });
 
 
-$("#search").on("click", function () {
+$("#submit").on("click", function () {
   var search = $("#search-name").val();
   console.log(search)
   secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
@@ -491,6 +490,3 @@ function removeEventFromBookmark(eventId){
       ajaxStart: function() { $body.addClass("loading");    },
        ajaxStop: function() { $body.removeClass("loading"); }    
   });
-
-
-  
