@@ -86,26 +86,26 @@ function addEventCardFromDB(event){
   // the event object has the same structure as the bookmark object 
   var eventId = event.eventId;
   var template = `
-      <div id="eventCard##EVENT-ID##" class="card" style="width: 18rem;">
-          <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
-          <div class="card-body">
-              <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
-              <h6>Date of Event: <span id="eventDate##EVENT-ID##"></span></h6>
-              <p id="eventDescription##EVENT-ID##" class="card-text"></p>
-              <div id="fullEventDescription##EVENT-ID##" style="display: none;"></div>
-              <div id="eventLocation##EVENT-ID##" style="display: none;"></div>
-              <br>
-              <div class="row text-center">
-                  <a  id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="color:white;padding:0;margin:0;" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
-                  <a id="removeEventButton##EVENT-ID##" href="#" class="removeEventButton btn btn-primary" style="color:white;padding:0;margin:0;" onclick="removeEventFromBookmark('##EVENT-ID##'); return false;">-</a>
-                  <a  id="eventRatingButton##EVENT-ID##" href="#" class="eventRatingButton btn btn-primary" style="color:white;padding:0;margin:0;" onclick="locationRatingButton('##EVENT-ID##'); return false;">*</a>
-                  <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="color:white;padding:0;margin:0;">More Info</a>
-              </div>
-          </div>
-      </div>
-  `;
+    <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem;" tabindex="-1" class="uk-active">
+        <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
+        <div class="card-body">
+            <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
+            <h6>Date of Event: <span id="eventDate##EVENT-ID##"></span></h6>
+            <p id="eventDescription##EVENT-ID##" class="card-text"></p>
+            <div id="fullEventDescription##EVENT-ID##" style="display: none;"></div>
+            <div id="eventLocation##EVENT-ID##" style="display: none;"></div>
+            <br>
+            <div class="row text-center">
+                <a  id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="margin: 5px" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
+                <a id="removeEventButton##EVENT-ID##" href="#" class="removeEventButton btn btn-primary" style="margin: 5px" onclick="removeEventFromBookmark('##EVENT-ID##'); return false;">-</a>
+                <a  id="eventRatingButton##EVENT-ID##" href="#" class="eventRatingButton btn btn-primary" style="margin: 5px" onclick="locationRatingButton('##EVENT-ID##'); return false;">*</a>
+                <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 5px">More Info</a>
+            </div>
+        </div>
+    </li>
+`;
   template = template.replace(/##EVENT-ID##/g, eventId);
-  $("#bookmarks").append(template);
+  $(".uk-slideshow-items").append(template);
 
   // instead of this information coming from our ajax call to EventBrite this is coming from Firebase
   $("#eventPhoto" + eventId).attr("src", event.eventPhoto);
@@ -142,7 +142,8 @@ function displayEventsByLatLong(latitude, longitude) {
     url: eventURL,
     method: "GET"
   }).then(function (response) {
-    events = response.events
+    events = response.events;
+    initMap();
     let infowindow = new google.maps.InfoWindow();
     for (var i = 0; i < numOfEventsToDisplay; i++) {
       addEventCard(events[i]);
@@ -151,8 +152,6 @@ function displayEventsByLatLong(latitude, longitude) {
   });
   console.log(eventURL);
 };
-
-displayEventsByLatLong(latitude, longitude);
 
 
 // function google() {
@@ -257,12 +256,6 @@ $("#search").on("click", function () {
       console.log(longitude);
       console.log(latitude)
 
-      myLatLng = { lat: latitude, lng: longitude };
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: myLatLng,
-        zoom: 12,
-        mapTypeId: 'terrain'
-      })
       $(".uk-slider-items").empty();
       displayEventsByLatLong(latitude, longitude);
 
@@ -324,53 +317,18 @@ function addEventToBookmark(eventId){
 
 };
 
-function addEventToBookmark(eventId){
-  // window.location = "../maps.html";
-
-  console.log(eventId);
-  var eventTitle = ($("#eventTitle" + eventId).text());
-  var eventPhoto = ($("#eventPhoto" + eventId).attr("src"));
-  var eventDate = ($("#eventDate" + eventId).text());
-  var fullEventDescription = ($("#fullEventDescription" + eventId).text());
-  var eventLocation = ($("#eventLocation" + eventId).text());
-
-
-  var bookmarksObject = {
-
-      eventTitle: eventTitle,
-      eventPhoto: eventPhoto,
-      eventDate: eventDate,
-      fullEventDescription: fullEventDescription,
-      eventId: eventId,
-      eventLocation: eventLocation
-
-  };
-
-  localStorage.setItem("eventId", eventId);
-
-  // bookmarks.push(bookmarksObject);
-  // console.log(bookmarks);
-
+// this function will be called on page open of the bookmarks 
+function populateBookmarksPage(){
+  // using our localStorage we are declaring a new variable called userName
   var userName = localStorage.getItem('userName');
-  var exists = false;
-  database.ref().child(userName+"/bookmarks").once("value", function(snapshot){
-      console.log("EVENT ID "+eventId);
-      console.log(snapshot.hasChild(eventId));
-      if(snapshot.hasChild(eventId)){
-          notify("You already saved this event!");
-          exists = true;
-      }
-
-  }).then(function(snapshot){
-      if(!exists){
-          database.ref().child(userName+"/bookmarks/"+eventId).set(bookmarksObject).then(function(snapshot){
-
-              notify("This has been Added!");
-      
-          });
-      }
+  // returning a call from our database using .ref()
+  // looking into the .child() under username we are going to create a branch
+  // 
+  database.ref().child(userName+"/bookmarks").orderByChild("bookmarks").on("child_added", function(snapshot){
+      var tempEventCardInfo = snapshot.val();
+      addEventCardFromDB(tempEventCardInfo);
+      console.log(tempEventCardInfo);
   });
-
 };
 
 
