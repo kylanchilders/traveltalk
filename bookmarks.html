@@ -1,140 +1,129 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>Title</title>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-​
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css" />
-<link rel="stylesheet" href="style.css">
-​
-  </head>
-​
-    <body id="bookmarksBody">
-​
-            <div class="uk-position-relative uk-visible-toggle uk-dark" tabindex="-1" uk-slider>
-​
 
-      
-                    <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
-                      <div id="eventCardBody" style="width: 0px"></div>
-                    </ul>
-                
-                    <a class="uk-position-center-left uk-position-small" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
-             
-            
-                </div>
-                           
-      <div class="row" style="height:520px;"></div>
-      <footer>
-          <nav class="navbar navbar-expand-lg  navbar-dark">
-                  <button type="button" class="navbar-toggler navbar-toggle" data-toggle="collapse"
-                          data-target="#myNavbar">
-                          <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="myNavbar">
-                          <ul id="navBarMain"class="navbar-nav mr-auto mt-2 mt-lg-0 top-text">
-                                  <li class="lists"><a href="index.html" id="hbt1" class="btn"><i
-                                                          class="fa fa-home w3-xxxlarge"
-                                                          style="color:white;padding:0;margin:0;"></i></a>
-                                  </li>
-                                  <li class="lists"><a href="contact.html">CONTACT</a></li>
-                                  <li class="lists"><a href="career.html">CAREERS</a></li>
-                                  <li class="lists" id= "bookmark1"><a href="bookmarks.html">BOOKMARKS</a></li>
-                                  <li class="lists">
-                                          <div class="input-group navbar-right" id="ig1">
-                                                  <input type="text" class="form-control"
-                                                          placeholder="Search the location">
-                                                  <div class="input-group-append">
-                                                          <button id="search1"class="btn btn-secondary" type="button">
-                                                                  <i class="fa fa-search"></i>
-                                                          </button>
-                                                  </div>
-                                          </div>
-                                  </li>
-                                  <li class="lists" style="position: relative;top:5px;left:400px;bottom:5px;"> <button id="signUp1"class="btn btn-danger" type="button" >SignUp<i class="glyphicon glyphicon-user" style="font-size:18px;color:white;"></i></button></li>
-                                  <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logIn1"class="btn btn-danger" type="button" >LogIn<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
-                                  <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logOut1"class="btn btn-danger" type="button" >LogOut<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
-                          </ul>
-                  </div>
+<head>
+        <link rel="stylesheet" href="reset.css">
+        <title>Title</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-                </div>
-              </li>
-              <li class="lists"> <button id="signUp1" class="btn btn-danger" type="button"
-                  style="position: relative;top:5px;left:400px;bottom:5px;">SignUp<i class="glyphicon glyphicon-user"
-                    style="font-size:18px;color:white;"></i></button></li>
-              <li class="lists"> <button id="logIn1" class="btn btn-danger" type="button"
-                  style="position: relative;top:5px;left:450px;bottom:5px;">LogIn<i class="fa fa-sign-in"
-                    style="font-size:18px;color:white;"></i></button></li>
-              <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logOut1"
-                  class="btn btn-danger" type="button">LogOut<i class="fa fa-sign-in"
-                    style="font-size:18px;color:white;"></i></button></li>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+                crossorigin="anonymous">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/css/uikit.min.css" />
+        <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+        <div id=container>
+            <div id="map" style="height: 300px;"></div>
+        </div>
+        <div class="uk-position-relative uk-visible-toggle uk-dark" tabindex="-1" uk-slider>
+    
+            <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+              <div id="eventCardBody" style="width: 0px"></div>
             </ul>
-          </div>
+        
+            <a class="uk-position-center-left uk-position-small" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
+     
     
-        </nav>
-      </footer>
-<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- UIkit JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit-icons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-database.js"></script>
-    <script src="./assets/javascript/script.js"></script>
-    <script src="./assets/javascript/moment.js"></script>
-
+        </div>
+                   
+    ​
+    <footer>
+            <nav class="navbar navbar-expand-lg  navbar-dark">
+                    <button type="button" class="navbar-toggler navbar-toggle" data-toggle="collapse"
+                            data-target="#myNavbar">
+                            <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul id="navBarMain"class="navbar-nav mr-auto mt-2 mt-lg-0 top-text">
+                                    <li class="lists"><a href="index.html" id="hbt1" class="btn"><i
+                                                            class="fa fa-home w3-xxxlarge"
+                                                            style="color:white;padding:0;margin:0;"></i></a>
+                                    </li>
+                                    <li class="lists"><a href="contact.html">CONTACT</a></li>
+                                    <li class="lists"><a href="career.html">CAREERS</a></li>
+                                    <li class="lists" id= "bookmark1"><a href="bookmarks.html">BOOKMARKS</a></li>
+                                    <li class="lists">
+                                            <div class="input-group navbar-right" id="ig1">
+                                                    <input type="text" class="form-control"
+                                                            placeholder="Search the location">
+                                                    <div class="input-group-append">
+                                                            <button id="custom"class="btn btn-secondary" type="button">
+                                                                    <i class="fa fa-search"></i>
+                                                            </button>
+                                                    </div>
+                                            </div>
+                                    </li>
+                                    <li class="lists" style="position: relative;top:5px;left:400px;bottom:5px;"> <button id="signUp1"class="btn btn-danger" type="button" >SignUp<i class="glyphicon glyphicon-user" style="font-size:18px;color:white;"></i></button></li>
+                                    <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logIn1"class="btn btn-danger" type="button" >LogIn<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
+                                    <li class="lists" style="position: relative;top:5px;left:450px;bottom:5px;"> <button id="logOut1"class="btn btn-danger" type="button" >LogOut<i class="fa fa-sign-in" style="font-size:18px;color:white;"></i></button></li>
+                            </ul>
+                    </div>
     
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&libraries=places"></script>
-​
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $("#logOut1").hide();
-$("#bookmark1").hide();
-var localValue = localStorage.getItem("userName");
-        //alert(localValue);
+            </nav>
+    </footer> 
+        <div id="modal">
+            <!-- Place at bottom of page -->
+        </div>
+    ​
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <!-- UIkit JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.7/js/uikit-icons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-database.js"></script>
+        <script src="./assets/javascript/script.js"></script>
+        <script src="./assets/javascript/moment.js"></script>
+        <script src="assets/javascript/click.js"></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc&libraries=places"></script>
+    ​
+            <script type="text/javascript">
+            $(document).ready(function(){
+                $("#logOut1").hide();
+            $("#bookmark1").hide();
+            var localValue = localStorage.getItem("userName");
+            //alert(localValue);
+    
+           if(localValue)
+          {
+            // loggedInUser=;
+                // console.log(loggedInUser);
+                console.log(localValue);
+                $("#navBarMain").append("<li class='lists' id='loginUser'>"+localValue+"</li>");
+                console.log("appended");
+              $("#logOut1").show();
+               $("#bookmark1").show();
+              $("#logIn1").hide();
+              $("#signUp1").hide();
+          }
+          else
+          {
+            console.log("Nothing");
+          }
+              populateBookmarksPage();
+            });
+            </script>
+    ​
+    </body>
 
-       if(localValue)
-      {
-        // loggedInUser=;
-            // console.log(loggedInUser);
-            console.log(localValue);
-            $("#navBarMain").append("<li class='lists' id='loginUser'>"+localValue+"</li>");
-            console.log("appended");
-          $("#logOut1").show();
-           $("#bookmark1").show();
-          $("#logIn1").hide();
-          $("#signUp1").hide();
-      }
-      else
-      {
-        console.log("Nothing");
-      }
-        populateBookmarksPage();
-      });
-
-    </script>
-​
-  </body>
-​
 </html>

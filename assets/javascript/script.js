@@ -22,6 +22,7 @@ var database = firebase.database();
 
 var auth = "S5UUTS2NYPECCKBYF5JY";
 var events = [];
+var markerArray = [];
 
 function generateCardBody(eventId){
   // dynamically creating our html within JavaScript to display for each individual event
@@ -36,6 +37,9 @@ function generateCardBody(eventId){
       <h6>Date of Event: <span id="eventDate##EVENT-ID##" class="eventDate##EVENT-ID##"></span></h6>
       <div id="fullEventURL##EVENT-ID##" class="fullEventURL##EVENT-ID##" style="display: none;"></div>
       <div id="fullEventDescription##EVENT-ID##" class="fullEventDescription##EVENT-ID##" style="display: none;"></div>
+      <div id="eventVenue##EVENT-ID##" class="eventVenue##EVENT-ID##" style="display: none;"></div>
+      <div id="eventVenueLat##EVENT-ID##" class="eventVenueLat##EVENT-ID##" style="display: none;"></div>
+      <div id="eventVenueLong##EVENT-ID##" class="eventVenueLong##EVENT-ID##" style="display: none;"></div>
               <p id="eventDescription##EVENT-ID##" class="eventDescription##EVENT-ID## card-text"></p>
               <br>
               <div class="row text-center" >
@@ -183,6 +187,9 @@ function addEventCard(event){
     $(".eventTitle" + eventId).text(event.name.text);
     $(".eventDate" + eventId).text(moment(event.start.local).format('MMMM Do YYYY, h:mm a'));
     $(".eventDescription" + eventId).text(event.description.text.substring(0, 150) + "...");
+    $(".eventVenue" + eventId).text(event.venue.name);
+    $(".eventVenueLat" + eventId).text(event.venue.latitude);
+    $(".eventVenueLong" + eventId).text(event.venue.longitude);
     $(".moreInfoButton" + eventId).attr("href", event.url);
     $(".fullEventDescription" + eventId).text(event.description.text);
     $(".fullEventURL" + eventId).text(event.url);
@@ -208,23 +215,35 @@ function addEventCardFromDB(event){
   $("#eventDescription" + eventId).text(event.fullEventDescription.substring(0, 150) + "...");
   $("#fullEventDescription" + eventId).text(event.fullEventDescription);
   $("#moreInfoButton" + eventId).attr("href", event.eventURL);
-  $("#eventLocation" + eventId).text(event.eventLocation);
+  $("#eventVenue" + eventId).text(event.eventVenue);
 };
 
 
-function addMapMarker(event,infowindow) {
+function addMapMarker(name,latitude,longitude,eventId,infowindow) {
   let marker = new google.maps.Marker({
-    position: new google.maps.LatLng(event.venue.latitude, event.venue.longitude),
+    position: new google.maps.LatLng(latitude, longitude),
     map: map,
-    title: event.name.text
+    title: name,
+    eventId: eventId
   });
 
   google.maps.event.addListener(marker, 'click', (function (marker) {
     return function () {
-      infowindow.setContent(event.name.text);
+      infowindow.setContent(name);
       infowindow.open(map, marker);
     }
   })(marker));
+  return marker;
+}
+
+function zoomMapToFitMarkers() {
+  if (markerArray.length > 0) {
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < markerArray.length; i++) {
+      bounds.extend(markerArray[i].getPosition());
+    }
+    map.fitBounds(bounds,10);
+  }
 }
 
 function displayEventsByLatLong(latitude, longitude) {
@@ -237,11 +256,30 @@ function displayEventsByLatLong(latitude, longitude) {
     initMap();
     let infowindow = new google.maps.InfoWindow();
     for (var i = 0; i < numOfEventsToDisplay; i++) {
-      addEventCard(events[i]);
-      addMapMarker(events[i],infowindow);
+      let currentEvent = events[i];
+      addEventCard(currentEvent);
+      markerArray.push(addMapMarker(currentEvent.name.text,currentEvent.venue.latitude,currentEvent.venue.longitude,currentEvent.id,infowindow));
+      zoomMapToFitMarkers();
     }
   });
   console.log(eventURL);
+};
+
+// this function will be called on page open of the bookmarks 
+function populateBookmarksPage(){
+  // using our localStorage we are declaring a new variable called userName
+  var userName = localStorage.getItem('userName');
+  // returning a call from our database using .ref()
+  // looking into the .child() under username we are going to create a branch
+  // 
+  initMap();
+  let infowindow = new google.maps.InfoWindow();
+  database.ref().child(userName+"/bookmarks").orderByChild("bookmarks").on("child_added", function(snapshot){
+      var tempEventCardInfo = snapshot.val();
+      addEventCardFromDB(tempEventCardInfo);
+      markerArray.push(addMapMarker(tempEventCardInfo.eventTitle,tempEventCardInfo.eventLat,tempEventCardInfo.eventLong,tempEventCardInfo.eventId,infowindow));
+      zoomMapToFitMarkers();
+  });
 };
 
 
@@ -337,7 +375,9 @@ function addEventToBookmark(eventId){
   var eventPhoto = ($("#eventPhoto" + eventId).attr("src"));
   var eventDate = ($("#eventDate" + eventId).text());
   var fullEventDescription = ($("#fullEventDescription" + eventId).text());
-  var eventLocation = ($("#eventLocation" + eventId).text());
+  var eventVenue = ($("#eventVenue" + eventId).text());
+  var eventLat = ($("#eventVenueLat" + eventId).text());
+  var eventLong = ($("#eventVenueLong" + eventId).text());
   var eventURL = ($("#fullEventURL" + eventId).text());
 
 
@@ -348,8 +388,10 @@ function addEventToBookmark(eventId){
       eventDate: eventDate,
       fullEventDescription: fullEventDescription,
       eventId: eventId,
-      eventLocation: eventLocation,
-      eventURL: eventURL
+      eventVenue: eventVenue,
+      eventURL: eventURL,
+      eventLat: eventLat,
+      eventLong: eventLong
 
   };
 
@@ -380,22 +422,9 @@ function addEventToBookmark(eventId){
 
 };
 
-// this function will be called on page open of the bookmarks 
-function populateBookmarksPage(){
-  // using our localStorage we are declaring a new variable called userName
-  var userName = localStorage.getItem('userName');
-  // returning a call from our database using .ref()
-  // looking into the .child() under username we are going to create a branch
-  // 
-  database.ref().child(userName+"/bookmarks").orderByChild("bookmarks").on("child_added", function(snapshot){
-      var tempEventCardInfo = snapshot.val();
-      addEventCardFromDB(tempEventCardInfo);
-      console.log(tempEventCardInfo);
-  });
-};
-
 
 function initMap() {
+  markerArray = []
   myLatLng = { lat: latitude, lng: longitude };
   map = new google.maps.Map(document.getElementById('map'), {
     center: myLatLng,
@@ -420,6 +449,20 @@ function locationRatingButton(eventId){
 
 };
 
+function removeMarkerForEvent(eventId){
+  var foundIndex = 0;
+  for(var i=0; i < markerArray.length; i++){
+    var currentMarker = markerArray[i];
+    if(currentMarker.eventId == eventId){
+      //matched. remove the marker.
+      foundIndex = i;
+      currentMarker.setMap(null);
+    }
+  }
+  markerArray.splice(foundIndex,1);
+  zoomMapToFitMarkers();
+}
+
 function removeEventFromBookmark(eventId){
 
     var userName = localStorage.getItem('userName');
@@ -429,7 +472,7 @@ function removeEventFromBookmark(eventId){
             database.ref().child(userName+"/bookmarks/"+eventId).remove().then(function(snapshot){
 
                 notify("This event has been removed!");
-
+                removeMarkerForEvent(eventId);
                 $(".eventCard" + eventId).hide();
 
             });
