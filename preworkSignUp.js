@@ -277,4 +277,5 @@ $("#button1").on("click",validateMyForm);
         arrName.push(snapshot.val().dbName);
         arrPassword.push(snapshot.val().dbPassword);
  })
+});
 
