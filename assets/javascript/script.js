@@ -22,12 +22,9 @@ var database = firebase.database();
 
 var auth = "S5UUTS2NYPECCKBYF5JY";
 var events = [];
+var markerArray = [];
 
-// this function that dynamically adds html to the dom 
-// passing our event through as a variable 
-function addEventCard(event){
-  // declaring a variable called eventId and assigning it the value of the id within the event return by the ajax call
-  var eventId = event.id;
+function generateCardBody(eventId){
   // dynamically creating our html within JavaScript to display for each individual event
   // because we dynamically printed our html with javascript we can call our .on("click", function()) from within the buttons themselves.
   // we are going to write it like: onclick="functionName('##EVENT-ID##'); return false;"
@@ -35,23 +32,21 @@ function addEventCard(event){
   var template = `
   <li class="card eventCard##EVENT-ID##" style="width: 18rem; order: 1" tabindex="-1" class="uk-active">
   <img id = "eventPhoto##EVENT-ID##" class="card-img-top eventPhoto##EVENT-ID##" src="" alt="Card image cap" style="height: 165px;">
-  <div class="card-body">
+  <div class="card-body d-flex flex-column">
       <h4 id="eventTitle##EVENT-ID##" class="eventTitle##EVENT-ID##" style="text-align: center"></h4>
       <h6>Date of Event: <span id="eventDate##EVENT-ID##" class="eventDate##EVENT-ID##"></span></h6>
+      <div id="fullEventURL##EVENT-ID##" class="fullEventURL##EVENT-ID##" style="display: none;"></div>
+      <div id="fullEventDescription##EVENT-ID##" class="fullEventDescription##EVENT-ID##" style="display: none;"></div>
+      <div id="eventVenue##EVENT-ID##" class="eventVenue##EVENT-ID##" style="display: none;"></div>
+      <div id="eventVenueLat##EVENT-ID##" class="eventVenueLat##EVENT-ID##" style="display: none;"></div>
+      <div id="eventVenueLong##EVENT-ID##" class="eventVenueLong##EVENT-ID##" style="display: none;"></div>
               <p id="eventDescription##EVENT-ID##" class="eventDescription##EVENT-ID## card-text"></p>
               <br>
-              <div class="ratingArea##EVENT-ID##">
-                <p style="margin: 0;">Venue Rating:</p>
-                <img src="./assets/images/star-icon-empty.png" class="1star##EVENT-ID##" style="height: 20px; width: 20px;" onclick="1star('##EVENT-ID##'); return false;">
-                <img src="./assets/images/star-icon-empty.png" class="2star##EVENT-ID##" style="height: 20px; width: 20px;">
-                <img src="./assets/images/star-icon-empty.png" class="3star##EVENT-ID##" style="height: 20px; width: 20px;">
-                <img src="./assets/images/star-icon-empty.png" class="4star##EVENT-ID##" style="height: 20px; width: 20px;">
-                <img src="./assets/images/star-icon-empty.png" class="5star##EVENT-ID##" style="height: 20px; width: 20px;">
-              </div>
-              <div class="row text-center">
-                  <a  id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="margin: 5px" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
+              <div class="row text-center" >
+                  <a id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="margin: 5px" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
                   <a id="removeEventButton##EVENT-ID##" href="#" class="removeEventButton btn btn-primary" style="margin: 5px" onclick="removeEventFromBookmark('##EVENT-ID##'); return false;">-</a>
-                  <a id="moreInfoButton##EVENT-ID##" target="sblank" href="#" class="btn btn-primary" style="margin: 5px">More Info</a>          </div>
+                  <a id="moreInfoButton##EVENT-ID##" target="blank" href="#" class="moreInfoButton##EVENT-ID## btn btn-primary" style="margin: 5px">More Info</a>          
+              </div>
       </li>
   `;
   // within the template we are going to call the .recplace() function which takes in two parameters
@@ -59,7 +54,12 @@ function addEventCard(event){
   // the small g identifies its going to specify every occurance of that string
   // the second parameter is what we are going to replace it with, here we are replacing with the eventId
   template = template.replace(/##EVENT-ID##/g, eventId);
+  // using the .append() function
+  // using jQuery selecting the ".uk-slider-items" id from the html and append() the template to it
+  $(".uk-slider-items").append(template);
+};
 
+function generateModalBody(eventId) {
   var modalTemplate = `
     <div class="modal fade" id="exampleModalLong##EVENT-ID##" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -89,103 +89,114 @@ function addEventCard(event){
 </div>
 `;
 
-modalTemplate = modalTemplate.replace(/##EVENT-ID##/g, eventId);
-$("body").after(modalTemplate);
+  modalTemplate = modalTemplate.replace(/##EVENT-ID##/g, eventId);
+  $("body").after(modalTemplate);
+};
 
-  // using the .append() function
-  // using jQuery selecting the ".uk-slider-items" id from the html and append() the template to it
-  $(".uk-slider-items").append(template);
-  
+function initializeRatings(eventId){
+  var userRating
+  var numberOfRatings
+  var initialRating
+
+  $(".1star" + eventId).on("click", function(){
+    $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".2star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    $(".3star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    userRating = 1;
+    numberOfRatings++;
+    $(".ratingArea" + eventId).delay(1500).queue(function(n){
+      $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+      n();
+    });
+  });
+
+  $(".2star" + eventId).click(function(){
+    $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".3star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    userRating = 2;
+    numberOfRatings++;
+    $(".ratingArea" + eventId).delay(1500).queue(function(n){
+      $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+      n();
+    });
+  });
+
+  $(".3star" + eventId).click(function(){
+    $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    userRating = 3;
+    numberOfRatings++;
+    $(".ratingArea" + eventId).delay(1500).queue(function(n){
+      $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+      n();
+    });
+  });
+
+  $(".4star" + eventId).click(function(){
+    $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".4star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
+    userRating = 4;
+    numberOfRatings++;
+    $(".ratingArea" + eventId).delay(1500).queue(function(n){
+      $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+      n();
+    });
+  });
+
+  $(".5star" + eventId).click(function(){
+    $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".4star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    $(".5star" + eventId).attr("src", "./assets/images/star-icon-full.png");
+    userRating = 5;
+    numberOfRatings++;
+    $(".ratingArea" + eventId).delay(1500).queue(function(n){
+      $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
+      n();
+    });
+  });
+};
+
+// this function that dynamically adds html to the dom 
+// passing our event through as a variable 
+function addEventCard(event){
+  // declaring a variable called eventId and assigning it the value of the id within the event return by the ajax call
+  var eventId = event.id;
+
+  generateCardBody(eventId);
+  generateModalBody(eventId);
 
   // dynamically grab the different html elements and assigning them values from the API call to EventBrite
   // using "#eventPhoto" concatenate with eventId
   // add and attribute with .attr("src") 
   // using our (event) we are using in our function we are going to return the value of that events logo.original.url
   // that will return the url for the events photo so we can display it in our "#eventPhoto" div
-  $(".eventPhoto" + eventId).attr("src", event.logo.original.url);
+    $(".eventPhoto" + eventId).attr("src", event.logo.original.url);
     $(".eventTitle" + eventId).text(event.name.text);
     $(".eventDate" + eventId).text(moment(event.start.local).format('MMMM Do YYYY, h:mm a'));
     $(".eventDescription" + eventId).text(event.description.text.substring(0, 150) + "...");
+    $(".eventVenue" + eventId).text(event.venue.name);
+    $(".eventVenueLat" + eventId).text(event.venue.latitude);
+    $(".eventVenueLong" + eventId).text(event.venue.longitude);
     $(".moreInfoButton" + eventId).attr("href", event.url);
     $(".fullEventDescription" + eventId).text(event.description.text);
+    $(".fullEventURL" + eventId).text(event.url);
     $(".venueName" + eventId).text(event.venue.name);
     $(".venueAddress1" + eventId).text(event.venue.address.address_1);
     $(".venueAddress2" + eventId).text(event.venue.address.city + ", " + event.venue.address.region + " " + event.venue.address.postal_code);
 
-
-    var userRating
-    var numberOfRatings
-    var initialRating
-
-    $(".1star" + eventId).on("click", function(){
-      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".2star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      $(".3star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      userRating = 1;
-      numberOfRatings++;
-      $(".ratingArea" + eventId).delay(1500).queue(function(n){
-        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
-        n();
-      });
-    });
-
-    $(".2star" + eventId).click(function(){
-      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".3star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      userRating = 2;
-      numberOfRatings++;
-      $(".ratingArea" + eventId).delay(1500).queue(function(n){
-        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
-        n();
-      });
-    });
-
-    $(".3star" + eventId).click(function(){
-      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".4star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      userRating = 3;
-      numberOfRatings++;
-      $(".ratingArea" + eventId).delay(1500).queue(function(n){
-        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
-        n();
-      });
-    });
-
-    $(".4star" + eventId).click(function(){
-      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".4star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".5star" + eventId).attr("src", "./assets/images/star-icon-empty.png");
-      userRating = 4;
-      numberOfRatings++;
-      $(".ratingArea" + eventId).delay(1500).queue(function(n){
-        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
-        n();
-      });
-    });
-
-    $(".5star" + eventId).click(function(){
-      $(".1star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".2star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".3star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".4star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      $(".5star" + eventId).attr("src", "./assets/images/star-icon-full.png");
-      userRating = 5;
-      numberOfRatings++;
-      $(".ratingArea" + eventId).delay(1500).queue(function(n){
-        $(".ratingArea" + eventId).html("<p>Thanks for your rating!</p>");
-        n();
-      });
-    });
 };
 
 // Here we have a similar function to the one called addEventCard
@@ -193,24 +204,7 @@ $("body").after(modalTemplate);
 function addEventCardFromDB(event){
   // the event object has the same structure as the bookmark object 
   var eventId = event.eventId;
-  var template = `
-    <li id="eventCard##EVENT-ID##" class="card" style="width: 18rem;" tabindex="-1" class="uk-active">
-        <img id="eventPhoto##EVENT-ID##" class="card-img-top" src="" alt="Card image cap">
-        <div class="card-body">
-            <h4 id="eventTitle##EVENT-ID##" style="text-align: center"></h4>
-            <h6>Date of Event: <span id="eventDate##EVENT-ID##"></span></h6>
-            <p id="eventDescription##EVENT-ID##" class="card-text"></p>
-            <div id="fullEventDescription##EVENT-ID##" style="display: none;"></div>
-            <div id="eventLocation##EVENT-ID##" style="display: none;"></div>
-            <br>
-            <div class="row text-center">
-                <a  id="addEventButton##EVENT-ID##" href="#" class="addEventButton btn btn-primary" style="margin: 5px" onclick="addEventToBookmark('##EVENT-ID##'); return false;">+</a>
-                <a id="removeEventButton##EVENT-ID##" href="#" class="removeEventButton btn btn-primary" style="margin: 5px" onclick="removeEventFromBookmark('##EVENT-ID##'); return false;">-</a>
-                <a  id="eventRatingButton##EVENT-ID##" href="#" class="eventRatingButton btn btn-primary" style="margin: 5px" onclick="locationRatingButton('##EVENT-ID##'); return false;">*</a>
-                <a id="moreInfoButton##EVENT-ID##" target="blank" href="#" class="btn btn-primary" style="margin: 5px">More Info</a>    </li>
-`;
-  template = template.replace(/##EVENT-ID##/g, eventId);
-  $(".uk-slider-items").append(template);
+  generateCardBody(eventId);
 
   // instead of this information coming from our ajax call to EventBrite this is coming from Firebase
   $("#eventPhoto" + eventId).attr("src", event.eventPhoto);
@@ -220,25 +214,36 @@ function addEventCardFromDB(event){
   // caping our fullEventDescription return from firebase this time at 150 characters
   $("#eventDescription" + eventId).text(event.fullEventDescription.substring(0, 150) + "...");
   $("#fullEventDescription" + eventId).text(event.fullEventDescription);
-  $("#eventLocation" + eventId).text(event.eventLocation);
-  $("#moreInfoButton" + eventId).attr("href", event.eventInfo);
-
+  $("#moreInfoButton" + eventId).attr("href", event.eventURL);
+  $("#eventVenue" + eventId).text(event.eventVenue);
 };
 
 
-function addMapMarker(event,infowindow) {
+function addMapMarker(name,latitude,longitude,eventId,infowindow) {
   let marker = new google.maps.Marker({
-    position: new google.maps.LatLng(event.venue.latitude, event.venue.longitude),
+    position: new google.maps.LatLng(latitude, longitude),
     map: map,
-    title: event.name.text
+    title: name,
+    eventId: eventId
   });
 
   google.maps.event.addListener(marker, 'click', (function (marker) {
     return function () {
-      infowindow.setContent(event.name.text);
+      infowindow.setContent(name);
       infowindow.open(map, marker);
     }
   })(marker));
+  return marker;
+}
+
+function zoomMapToFitMarkers() {
+  if (markerArray.length > 0) {
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < markerArray.length; i++) {
+      bounds.extend(markerArray[i].getPosition());
+    }
+    map.fitBounds(bounds,10);
+  }
 }
 
 function displayEventsByLatLong(latitude, longitude) {
@@ -251,49 +256,31 @@ function displayEventsByLatLong(latitude, longitude) {
     initMap();
     let infowindow = new google.maps.InfoWindow();
     for (var i = 0; i < numOfEventsToDisplay; i++) {
-      addEventCard(events[i]);
-      addMapMarker(events[i],infowindow);
+      let currentEvent = events[i];
+      addEventCard(currentEvent);
+      markerArray.push(addMapMarker(currentEvent.name.text,currentEvent.venue.latitude,currentEvent.venue.longitude,currentEvent.id,infowindow));
+      zoomMapToFitMarkers();
     }
   });
   console.log(eventURL);
 };
 
-$("#signUp1").on("click",function()
-  {
-    window.open("preworkSignUp.html");
-  })
-  $("#logIn1").on("click",function()
-  {
-    window.open("preworkLogIn.html");
-  })
-// function google() {
-//   var search = $("#search-name").val();
-//   console.log(search)
-//   secondURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + search + "&key=AIzaSyCPnrEUe-GDsavDjTaLAaVR8bKZ15QOTVc"
-//   queryautocom = "https://cors-anywhere.herokuapp.com/" + secondURL;
-  
-//   $.ajax({
-//     url: queryautocom,
-//     method: "GET",
-//     dataType: "json",
-//     // this headers section is necessary for CORS-anywhere
-//     headers: {
-//       "x-requested-with": "xhr"
-//     },
-//     // error: function (XMLHttpRequest, textStatus, errorThrown) {
-//     //   alert("Status: " + textStatus); alert("Error: " + errorThrown);
-//     // },
-//     success: function (data1) {
-//       console.log(queryautocom);
-//       longitude = data1.results[0].geometry.location.lng;
-//       console.log(longitude);
-//       latitude = data1.results[0].geometry.location.lat
-//       console.log(latitude)
-//       $(".uk-slider-items").empty();
-//       displayEventsByLatLong();
-//     }
-//   })
-// };
+// this function will be called on page open of the bookmarks 
+function populateBookmarksPage(){
+  // using our localStorage we are declaring a new variable called userName
+  var userName = localStorage.getItem('userName');
+  // returning a call from our database using .ref()
+  // looking into the .child() under username we are going to create a branch
+  // 
+  initMap();
+  let infowindow = new google.maps.InfoWindow();
+  database.ref().child(userName+"/bookmarks").orderByChild("bookmarks").on("child_added", function(snapshot){
+      var tempEventCardInfo = snapshot.val();
+      addEventCardFromDB(tempEventCardInfo);
+      markerArray.push(addMapMarker(tempEventCardInfo.eventTitle,tempEventCardInfo.eventLat,tempEventCardInfo.eventLong,tempEventCardInfo.eventId,infowindow));
+      zoomMapToFitMarkers();
+  });
+};
 
 
 $("#search-name").on('keyup', function (e) {
@@ -388,7 +375,10 @@ function addEventToBookmark(eventId){
   var eventPhoto = ($("#eventPhoto" + eventId).attr("src"));
   var eventDate = ($("#eventDate" + eventId).text());
   var fullEventDescription = ($("#fullEventDescription" + eventId).text());
-  var eventLocation = ($("#eventLocation" + eventId).text());
+  var eventVenue = ($("#eventVenue" + eventId).text());
+  var eventLat = ($("#eventVenueLat" + eventId).text());
+  var eventLong = ($("#eventVenueLong" + eventId).text());
+  var eventURL = ($("#fullEventURL" + eventId).text());
 
 
   var bookmarksObject = {
@@ -398,7 +388,10 @@ function addEventToBookmark(eventId){
       eventDate: eventDate,
       fullEventDescription: fullEventDescription,
       eventId: eventId,
-      eventLocation: eventLocation
+      eventVenue: eventVenue,
+      eventURL: eventURL,
+      eventLat: eventLat,
+      eventLong: eventLong
 
   };
 
@@ -429,22 +422,9 @@ function addEventToBookmark(eventId){
 
 };
 
-// this function will be called on page open of the bookmarks 
-function populateBookmarksPage(){
-  // using our localStorage we are declaring a new variable called userName
-  var userName = localStorage.getItem('userName');
-  // returning a call from our database using .ref()
-  // looking into the .child() under username we are going to create a branch
-  // 
-  database.ref().child(userName+"/bookmarks").orderByChild("bookmarks").on("child_added", function(snapshot){
-      var tempEventCardInfo = snapshot.val();
-      addEventCardFromDB(tempEventCardInfo);
-      console.log(tempEventCardInfo);
-  });
-};
-
 
 function initMap() {
+  markerArray = []
   myLatLng = { lat: latitude, lng: longitude };
   map = new google.maps.Map(document.getElementById('map'), {
     center: myLatLng,
@@ -469,6 +449,20 @@ function locationRatingButton(eventId){
 
 };
 
+function removeMarkerForEvent(eventId){
+  var foundIndex = 0;
+  for(var i=0; i < markerArray.length; i++){
+    var currentMarker = markerArray[i];
+    if(currentMarker.eventId == eventId){
+      //matched. remove the marker.
+      foundIndex = i;
+      currentMarker.setMap(null);
+    }
+  }
+  markerArray.splice(foundIndex,1);
+  zoomMapToFitMarkers();
+}
+
 function removeEventFromBookmark(eventId){
 
     var userName = localStorage.getItem('userName');
@@ -478,14 +472,25 @@ function removeEventFromBookmark(eventId){
             database.ref().child(userName+"/bookmarks/"+eventId).remove().then(function(snapshot){
 
                 notify("This event has been removed!");
-
-                $("#eventCard" + eventId).hide();
+                removeMarkerForEvent(eventId);
+                $(".eventCard" + eventId).hide();
 
             });
         }
     });
 
 };
+
+$("#signUp1").on("click",function()
+  {
+    window.open("preworkSignUp.html");
+  })
+  $("#logIn1").on("click",function()
+  {
+    window.open("preworkLogIn.html");
+  
+});
+
 $("#logOut1").on("click",function()
     {
       $("#logOut1").hide();
@@ -495,54 +500,10 @@ $("#logOut1").on("click",function()
       $("#loginUser").hide();
       localStorage.clear();
       
-    });
+});
 
   $body = $("body");
   $(document).on({
       ajaxStart: function() { $body.addClass("loading");    },
        ajaxStop: function() { $body.removeClass("loading"); }    
   });
-
-  $("#seaButton").on("click", function(){
-    
-    localStorage.setItem("latitude", 47.6062);
-    localStorage.setItem("longitude", -122.3321);
-    console.log(localStorage)
-    window.location = "./maps.html";
-});
-
-$("#sanFranButton").on("click", function(){
-    
-    localStorage.setItem("latitude", 37.7749);
-    localStorage.setItem("longitude", -122.4194);
-    console.log(localStorage)
-    window.location = "./maps.html";
-});
-$("#parisButton").on("click", function(){
-    
-    localStorage.setItem("latitude", 48.8566);
-    localStorage.setItem("longitude", 2.3522);
-    console.log(localStorage)
-    window.location = "./maps.html";
-});
-$("#athensButton").on("click", function(){
-    
-    localStorage.setItem("latitude", 37.9838);
-    localStorage.setItem("longitude", 23.7275);
-    console.log(localStorage)
-    window.location = "./maps.html";
-});
-$("#madridButton").on("click", function(){
-    
-    localStorage.setItem("latitude", 40.4168);
-    localStorage.setItem("longitude", -3.7038);
-    console.log(localStorage)
-    window.location = "./maps.html";
-});
-$("#hKButton").on("click", function(){
-    
-    localStorage.setItem("latitude", 22.3193);
-    localStorage.setItem("longitude", 114.1694);
-    console.log(localStorage)
-    window.location = "./maps.html";
-});

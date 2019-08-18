@@ -54,33 +54,43 @@
   {
     window.open("preworkLogIn.html");
   })
+
+  function notifyError(message){
+
+    UIkit.notification({
+        message: message,
+        status: 'danger',
+        timeout: 2000
+    });
+
+};
   
   function validateMyForm()
 {
   if($("#text1").val() === "")
       {
         
-        alert("Please fill the field");
+        notifyError("Please fill the field");
         return false;
       }
      else if($("#text2").val() === "")
       {
-        alert("Please fill the field");
+        notifyError("Please fill the field");
         return false;
       }
      else if($("#email1").val() === "")
       {
-        alert("Please fill the field");
+        notifyError("Please fill the field");
         return false;
       }
      else if($("#select1").val() === "Select")
       {
-        alert("Please select a value");
+        notifyError("Please select a value");
         return false
       }
       else if($("#password1").val() === " ")
       {
-        alert("Please fill the field");
+        notifyError("Please fill the field");
         return false;
       }
 
@@ -111,12 +121,12 @@ function loginValidationForm()
 
   if($("#loginText1").val()=== "")
   {
-    alert("Please fill the field");
+    notifyError("Please fill the field");
     return false;
   }
  else if($("#loginPassword1").val()==="")
   {
-    alert("Please fill the field");
+    notifyError("Please fill the field");
     return false;
   }
  
@@ -172,7 +182,7 @@ function loginValidationForm()
         
       }
       else{
-        alert("You are not registered.Register First!!");
+        notifyError("You are not registered.Register First!!");
         window.open("preworkSignUp.html","_self");
       }
       window.open("index.html","_self");
@@ -198,7 +208,7 @@ $("#button1").on("click",validateMyForm);
 //         };
        
 //         database.ref().child(name).set(userNameObject);
-//         alert("Successfully SignedUp");
+//          notifyError("Successfully SignedUp");
 //         window.open("preworkLogIn.html","_self");
 //     })
     $("#button2").on("click",function()
@@ -206,7 +216,7 @@ $("#button1").on("click",validateMyForm);
       console.log("LogIn");
       window.open("preworkLogIn.html","_self");
 
-    $("#logInButton1").on("click",loginValidationForm);
+    });
     // $("#logInButton1").on("click",function()
     // {
     //   var userInputName = $("#loginText1").val();
@@ -233,7 +243,7 @@ $("#button1").on("click",validateMyForm);
     //   {
     //     var success;
     //     var loggedInUser;
-    //     alert("LogIn Successful");
+    //      notifyError("LogIn Successful");
 
     //    //window.open("maps.html","_self");
     //     localStorage.setItem("userName",foundUserName);
@@ -258,11 +268,12 @@ $("#button1").on("click",validateMyForm);
         
     //   }
     //   else{
-    //     alert("You are not registered.Register First!!");
+    //      notifyError("You are not registered.Register First!!");
     //     window.open("preworkSignUp.html","_self");
     //   }
     // })
-    $("#logOut1").on("click",function()
+
+$("#logOut1").on("click",function()
     {
       $("#logOut1").hide();
        $("#bookmark1").hide();
@@ -270,11 +281,13 @@ $("#button1").on("click",validateMyForm);
       $("#logIn1").show();
       $("#loginUser").hide();
       localStorage.clear();
-    })
+    });
+
+    $("#logInButton1").on("click",loginValidationForm);
+
     database.ref().on("child_added",function(snapshot)
     {
       console.log("Entered databaser read");
         arrName.push(snapshot.val().dbName);
         arrPassword.push(snapshot.val().dbPassword);
- })
-
+ });
